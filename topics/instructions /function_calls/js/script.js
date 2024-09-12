@@ -1,9 +1,9 @@
 /**
- * Title of Project
+ * the blank page
  * Sophie Sanchez 
  * 
- * Working on the function calls exemple
- * 
+ * xd
+ * try tying....
  */
 
 "use strict";

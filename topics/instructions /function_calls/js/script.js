@@ -1,24 +1,25 @@
 /**
  * Title of Project
- * Author Name
+ * Sophie Sanchez 
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * Working on the function calls exemple
+ * 
  */
 
 "use strict";
 
-/**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
-*/
+
 function setup() {
+    // will happen once at the beginning of the program 
+    createCanvas(649,430);
 
 }
 
 
-/**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
-*/
-function draw() {
 
+function draw() {
+     // every frame 
+     background(67,98,234);
+     square(34,23,200,524); 
+     
 }

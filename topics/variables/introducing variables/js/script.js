@@ -1,24 +1,29 @@
 /**
- * Title of Project
- * Author Name
+ * introducing variables 
+ * Sophie Sanchez 
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * learning how to introduce variables 
  */
 
 "use strict";
 
-/**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
+/* Create canvas 
 */
 function setup() {
+    createCanvas(500,500);
 
 }
-
-
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * Draws a circle on the middle of the canvas
 */
 function draw() {
+    background(0);
+
+    //draw the circle
+    push();
+    fill(45,87,98);
+    noStroke();
+    ellipse(width/2,height/2,mouseX,mouseY);
+    pop();
 
 }

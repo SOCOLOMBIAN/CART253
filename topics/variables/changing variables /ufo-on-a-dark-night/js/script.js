@@ -1,8 +1,8 @@
 /**
  * UFO on a Dark Night
- * Pippin Barr
+ * sophie sanchez 
  * 
- * A UFO. On a dark night. It just sits there?
+ * changing variables 
  */
 
 "use strict";
@@ -33,8 +33,23 @@ function setup() {
  * Displays a UFO
 */
 function draw() {
+    //danw
+    skyShade = skyShade +1;
     // Display the sky
     background(skyShade);
+
+
+    //move the UFO
+    ufo.x=ufo.x + 0.5;
+    ufo.y= ufo.y -2;
+
+    // change its fill *= //times for a number less that 1
+    ufo.fill = ufo.fill * 0.995;
+
+    // change its shaape 
+    ufo.width = ufo.width/1.005;
+    ufo.height= ufo.height/1.005;
+
 
     // Draw the UFO based on its properties
     push();

@@ -7,6 +7,16 @@
 
 "use strict";
 
+ // is called assign
+let cheeseRed=255;
+let cheeseGreen = 255;
+let cheeseBlue = 0;
+
+let holeShade=0;
+let holeSize= 120;
+let holeX= 300;
+let holeY= 400;
+
 /**
  * creates the canvas 
 */
@@ -17,17 +27,16 @@ function setup() {
 
 
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * i changed for the variables and declare 
 */
 function draw() {
     //the cheese
-    background(255,255,0);
-
+    background(cheeseRed, cheeseGreen, cheeseBlue);
     //the hole 
     push();
     noStroke();
-    fill(0);
-    ellipse(300,400,87);
+    fill(holeShade);
+    ellipse(holeX,holeY,holeSize);
     pop();
       
 

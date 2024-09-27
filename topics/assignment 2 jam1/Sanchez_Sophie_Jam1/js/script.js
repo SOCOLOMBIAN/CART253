@@ -8,22 +8,22 @@
 
 "use strict";
 
-let skyImage= undefined;
+let skyImage; 
 
 let moon= {
     
     x: 310,
     y: 150,
-    size: 10,
+    size: 40,
     velocity: {
         x: 0,
-        y: 0,
+        y: 0
 
     },
 
     minVelocity:{
-        x: 2,
-        y: 3
+        x: -2,
+        y:-3
     },
 
     maxVelocity: {
@@ -33,30 +33,28 @@ let moon= {
      
     acceleration:{
         x: 0.025,
-        y: 0.025
+        y: -0.05
     }
-
-    
-}
+   
+};
 
 function preload() {
-    skyImage= loadImage("assets/images/nightsky.jpg");
+    skyImage= loadImage("assets/images/skyatnight.png");
 } 
-    // close preload 
+// close preload 
 
 // i create the size of the canvas and the commands 
 
 function setup() {
-   createCanvas (581,392);
-    
+   createCanvas (860,608);   
 }
 
-// i create a background with an image of the sky 
-function draw() {
+
+function draw() { // i create a background with an image of the sky 
     background(skyImage);
 
-     moon.velocity.x= moon.velocity.x + moon. acceleration.x;
-     moon.velocity.y= moon.velocity.y + moon. acceleration.y;
+     moon.velocity.x +=  moon. acceleration.x;
+     moon.velocity.y +=  moon. acceleration.y;
     
     
      moon.velocity.x = constrain(moon.velocity.x,moon.minVelocity.x,moon.maxVelocity.x);
@@ -66,7 +64,7 @@ function draw() {
     moon.y= moon.y + moon.velocity.y;
 
      //draw the moon 
-     fill(255 );
+     fill(255);
      ellipse(moon.x,moon.y,moon.size);
      
      

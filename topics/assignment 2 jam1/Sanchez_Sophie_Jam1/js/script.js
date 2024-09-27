@@ -1,5 +1,5 @@
 /**
- * Title of Project
+ * Sophie Sanchez 
  * Author Name
  * 
  * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
@@ -8,17 +8,25 @@
 
 "use strict";
 
-/**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
-*/
-function setup() {
+let skyImage= undefined;
 
+function preload() {
+    skyImage= loadImage("assets/images/nightsky.jpg");
+} 
+    // close preload 
+
+// i create the size of the canvas and the commands 
+
+function setup() {
+   createCanvas (581,392);
+    
 }
 
-
-/**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
-*/
+// i create a background with an image of the sky 
 function draw() {
+    background(skyImage);
+
+   
+
 
 }

@@ -1,18 +1,13 @@
 /**
  * Sophie Sanchez 
- * Author Name
- * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ 
  */
 
 "use strict";
 
-let skyImage; 
-
 let moon= {
     
-    x: 310,
+    x: 100,
     y: 150,
     size: 40,
     velocity: {
@@ -38,20 +33,15 @@ let moon= {
    
 };
 
-function preload() {
-    skyImage= loadImage("assets/images/skyatnight.png");
-} 
-// close preload 
-
 // i create the size of the canvas and the commands 
 
 function setup() {
-   createCanvas (860,608);   
+   createCanvas (700,600);
+   
 }
 
-
 function draw() { // i create a background with an image of the sky 
-    background(skyImage);
+    background(0);
 
      moon.velocity.x +=  moon. acceleration.x;
      moon.velocity.y +=  moon. acceleration.y;

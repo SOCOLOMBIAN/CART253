@@ -43,7 +43,7 @@ function draw() { // i create a background with the color of the dark sky
    
     moon.x+= moon.velocity.x;
 
-    if (moon.x> width) {
+    if (moon.x> width + moon.size) {
         moon.x = -moon.size; // reset the position of the moon
         moon.velocity.x += 0.5; // increment velocity of the moon, when reset
 
@@ -61,9 +61,11 @@ function draw() { // i create a background with the color of the dark sky
 
     movingCircle.x +=movingCircle.velocity.x;
 
-    if (movingCircle.x > width) {
+    if (movingCircle.x > width + movingCircle.x) {
         movingCircle.x = -movingCircle.size;
         movingCircle.velocity.x += 0.5;
+        movingCircle.x+= 5;
+    
     }
     
 }

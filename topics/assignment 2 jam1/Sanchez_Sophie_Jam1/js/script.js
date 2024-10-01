@@ -97,12 +97,11 @@ function draw() { // i create a background with the color of the dark sky
      fill(255);
 
      if (catAlive) {
-
+         image(img3, width/2,height/2,300,400);
          text( "Xena survived from the full moon", width/2, height/2);
-         image(img3, width/2,height/2, 2,100,200);
      }else { 
+             image(img2, width/2,height/2,300,400);
              text("Xena got into an eternal dream",width/2, height/2);
-             image(img2, width/2,height/2, 2,100,200);
          }
 
         }
@@ -132,12 +131,12 @@ function draw() { // i create a background with the color of the dark sky
 }
    function drawGrowingImage(){
 
-    image(img, 400, 480, imgSize,imgSize); // image of my cat Xena 
+    image(img, 400, 400, imgSize,imgSize); // image of my cat Xena 
    }
      
    function mousePressed() {
     let catX= 400 +imgSize/2;
-    let catY= 480 +imgSize/2;
+    let catY= 400 +imgSize/2;
 
      let clickOncat= dist( mouseX,mouseY,catX,catY) < imgSize/2;
     

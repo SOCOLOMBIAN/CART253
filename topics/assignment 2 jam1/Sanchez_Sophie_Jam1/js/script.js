@@ -13,13 +13,11 @@ velocity: {
     x: 0.5,
     y: 0,
     isMoving: true, 
-
-
+},
     stopPosition: {
         x:560,
         y:150
     }
-},
 
 };
 
@@ -45,6 +43,16 @@ function draw() { // i create a background with the color of the dark sky
     background(0);
 
 
+    // draw the mountains for decoration of the canvas
+
+    fill(91,71,110);
+    strokeWeight(0);
+    triangle(360,130,760,500,-40,500);
+
+    fill()
+
+
+
     //draw the moon 
     fill(255);
     ellipse(moon.x, moon.y, moon.size);
@@ -55,11 +63,9 @@ function draw() { // i create a background with the color of the dark sky
         moon.velocity.x += 0.5; // increment velocity of the moon, when reset
     }
 
-    if (moon.velocity> 1) {
-        moon.isMoving = flase;
-
-        moon.x =moon.stopPosition.x;
-        moon.y=moon.stopPosition.y;
+    if (moon.x > moon.stopPosition.x && moon.velocity.x > 0.7) {
+        moon.x = moon.stopPosition.x;
+        moon.velocity.isMoving= false;
 
     }
 

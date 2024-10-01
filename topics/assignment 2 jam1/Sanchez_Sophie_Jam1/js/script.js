@@ -36,17 +36,21 @@ let movingCircle= { // creating the variables
 
 let img; 
 let img2;
+let img3;
 let imgSize= 20;
 let maxImgSize=200;
-let imgGrothRate = 0.5;
+let imgRate= 0.2;
+let imgGrothRate = 3;
 let imageVisible= true;
 let moonStop = true;
 let gameOver= false;
 let catAlive= false;
+let clickTime= 0;
 
     function preload() {
         img = loadImage("assets/images/XenaSleep.png");
         img2 = loadImage("assets/images/XenaAfter.png");
+        img3= loadImage("assets/images/survived.png");
       }
 
 function setup() {
@@ -76,11 +80,10 @@ function draw() { // i create a background with the color of the dark sky
    drawMoon(); // draw the moving moon 
    drawCircle(); // draw the moving circle 
 
-   if (imageVisible) { // draw the image of my cat
-    drawGrowingImage();
+   if (!gameOver){
+    imgSize= max(20, imgSize - imgShrinkRate);
    }
 
-   // conditions to know what happens to my cat
 
   if (moon.x>= moon.stopPosition.x && moon.velocity.x > 0.7) {
      gameOver= true;
@@ -98,9 +101,12 @@ function draw() { // i create a background with the color of the dark sky
 
          else { 
              text("Xena got into an eternal dream",width/2, height/2);
-             image(img2, width/2,height/2, 50,200,200);
+        
          }
-        }
+
+        } if (imageVisible) { // draw the image of my cat
+            drawGrowingImage();
+           }
 
   }
 
@@ -130,13 +136,28 @@ function draw() { // i create a background with the color of the dark sky
 
     image(img, 400, 480, imgSize,imgSize); 
    }
+     if (!gameOver) {
+        image(img3, width/2,height/2, 100,200,200);
 
+     }
+     
    function mousePressed() {
     let catX= 400 +imgSize/2;
     let catY= 480 +imgSize/2;
 
-    if (!gameOver && dist( mouseX,mouseY,catX,catY) < imgSize/2 ) {
-        imgSize = min(maxImgSize, imgSize +5);
-    }
+     let clickOncat= dist( mouseX,mouseY,catX,catY) < imgSize/2;
+    
+     if (!gameOver && clickOncat) {
+        imgSize+ imgSize +5;
+
+     }
+
+     if (imgSize >= maxImgSize){
+
+        image(img3,0,0, 200,200);
+        
+     }
+
+
 
    }

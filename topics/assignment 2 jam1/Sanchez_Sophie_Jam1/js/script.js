@@ -35,17 +35,13 @@ let movingCircle= { // creating the variables
 };
 
 let img;
-let imgSize= 70;
+let imgSize= 40;
+let maxImgSize=70;
 let imgGrothRate = 0.5;
-let imageVisible= true;
+let imageVisible= false;
+let moonStop = false;
 
-function preload() {
-
-img= loadImage('XenaSleep.jpg'); // image of my cat sleeping 
-
-}
-
-
+    
 function setup() {
    createCanvas (700,600);
      
@@ -75,8 +71,11 @@ function draw() { // i create a background with the color of the dark sky
 
    drawMoon();
    drawCircle(); // draw the moving circle 
-}
+   if (imageVisible) {
+    drawGrowingImage();
+   }
 
+}
 
    function drawMoon() {
 
@@ -94,16 +93,56 @@ function draw() { // i create a background with the color of the dark sky
         moon.x = moon.stopPosition.x;
         moon.velocity.isMoving= false;
 
+        if (imgSize > maxImgSize) {
+
+            console.log( "the image of my cat lives")
+        } else {
+
+            imgVisible= false;
+            console.log("the image of my cat dies")
+
+        }
+
     }
    
 } 
     function drawCircle() { // funciton circle moving  
     fill(0); // color of the circle 
     ellipse(movingCircle.x,movingCircle.y,movingCircle.size);
-    
     movingCircle.x += 0.5;
-
-    
+   
 }
+
+function drawGrowingImage(){
+
+    imgSize=imgSize + imgGrothRate;
+
+    if (imgSize >= maxImgSize) {
+        imgSize = maxImgSize;
+    }
+
+    image(img, width/2, height/2, imgSize,imgSize); }
+
+    function wakeUpImage() {
+
+        imageVisible= true;
+        imgSize=50;
+        moonStop = false;
+        moon.x = 560;
+    }
+
+    function keyPressed(){
+
+        if ( KEY === 'C') 
+        {
+
+        wakeUpImage();
+
+        }
+
+
+    }
+
+
 
 

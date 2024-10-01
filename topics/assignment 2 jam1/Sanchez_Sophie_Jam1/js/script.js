@@ -7,7 +7,7 @@
 
 let moon= { // giving the moon the different variables to move around 
     x:100,
-    y:150,
+    y:120,
     size: 85,
 velocity: {
     x: 0.5,
@@ -24,7 +24,7 @@ velocity: {
 let movingCircle= { // creating the variables 
 
     x: 110,
-    y: 145,
+    y: 115,
     size:70,
 
  velocity: {
@@ -33,6 +33,18 @@ let movingCircle= { // creating the variables
  }
 
 };
+
+let img;
+let imgSize= 70;
+let imgGrothRate = 0.5;
+let imageVisible= true;
+
+function preload() {
+
+img= loadImage('XenaSleep.jpg'); // image of my cat sleeping 
+
+}
+
 
 function setup() {
    createCanvas (700,600);

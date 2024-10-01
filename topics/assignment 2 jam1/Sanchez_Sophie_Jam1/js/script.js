@@ -11,8 +11,15 @@ let moon= { // giving the moon the different variables to move around
     size: 85,
 velocity: {
     x: 0.5,
-    y: 0
-}
+    y: 0,
+    isMoving: true, 
+
+
+    stopPosition: {
+        x:560,
+        y:150
+    }
+},
 
 };
 
@@ -37,6 +44,7 @@ function setup() {
 function draw() { // i create a background with the color of the dark sky 
     background(0);
 
+
     //draw the moon 
     fill(255);
     ellipse(moon.x, moon.y, moon.size);
@@ -47,13 +55,22 @@ function draw() { // i create a background with the color of the dark sky
         moon.velocity.x += 0.5; // increment velocity of the moon, when reset
     }
 
-    drawCircle(); // draw the moving circle 
-    
-}
+    if (moon.velocity> 1) {
+        moon.isMoving = flase;
 
+        moon.x =moon.stopPosition.x;
+        moon.y=moon.stopPosition.y;
+
+    }
+
+    drawCircle(); // draw the moving circle 
+   
+}
+    
     function drawCircle() { // funciton circle moving  
     fill(0); // color of the circle 
     ellipse(movingCircle.x,movingCircle.y,movingCircle.size);
+    
     movingCircle.x += 0.5;
 
     

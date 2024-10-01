@@ -41,7 +41,10 @@ let imgGrothRate = 0.5;
 let imageVisible= false;
 let moonStop = false;
 
-    
+    function preload() {
+        img = loadImage("assets/image/XenaSleep.jpg");
+      }
+
 function setup() {
    createCanvas (700,600);
      

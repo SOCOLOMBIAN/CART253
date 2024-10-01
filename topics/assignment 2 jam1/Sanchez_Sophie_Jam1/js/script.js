@@ -98,8 +98,9 @@ function draw() { // i create a background with the color of the dark sky
 
          else { 
              text("Xena got into an eternal dream",width/2, height/2);
-             image(img2, 700, 600);
+             image(img2, width/2,height/2, 50,200,200);
          }
+        }
 
   }
 
@@ -117,11 +118,6 @@ function draw() { // i create a background with the color of the dark sky
         moon.x = -moon.size; // reset the position of the moon
         moon.velocity.x += 0.5; // increment velocity of the moon, when reset
     }
-
-    if (moon.x > moon.stopPosition.x && moon.velocity.x > 0.7) {
-        moon.x = moon.stopPosition.x;
-        moon.velocity.isMoving= false;
-    }
    
 } 
     function drawCircle() { // funciton circle moving  
@@ -136,12 +132,11 @@ function draw() { // i create a background with the color of the dark sky
    }
 
    function mousePressed() {
-    let catX= 400 +imgSIze/2;
+    let catX= 400 +imgSize/2;
     let catY= 480 +imgSize/2;
 
     if (!gameOver && dist( mouseX,mouseY,catX,catY) < imgSize/2 ) {
         imgSize = min(maxImgSize, imgSize +5);
     }
-    
+
    }
-}

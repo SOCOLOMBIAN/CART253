@@ -42,7 +42,7 @@ let imageVisible= false;
 let moonStop = false;
 
     function preload() {
-        img = loadImage("assets/image/XenaSleep.jpg");
+        img = loadImage("assets/images/XenaSleep.jpg");
       }
 
 function setup() {

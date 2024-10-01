@@ -34,12 +34,12 @@ let movingCircle= { // creating the variables
 
 };
 
-let img;
-let imgSize= 40;
-let maxImgSize=70;
+let img; 
+let imgSize= 20;
+let maxImgSize=200;
 let imgGrothRate = 0.5;
-let imageVisible= false;
-let moonStop = false;
+let imageVisible= true;
+let moonStop = true;
 
     function preload() {
         img = loadImage("assets/images/XenaSleep.jpg");
@@ -53,9 +53,7 @@ function setup() {
 function draw() { // i create a background with the color of the dark sky 
     background(0);
 
-
-    // draw the mountains for decoration of the canvas
-
+// draw the mountains for decoration of the canvas
     fill(108,47,47);
     strokeWeight(0);
     triangle(600,195,1000,600,-100,400);
@@ -65,16 +63,15 @@ function draw() { // i create a background with the color of the dark sky
     triangle(320,210,520,500,-300,500);
 
 // ground 
-
   fill(60,145,57);
   ellipse(60,640,1000,400);
 
   fill(69,168,66);
   ellipse(540,690,1000,400);
 
-   drawMoon();
+   drawMoon(); // draw the moving moon 
    drawCircle(); // draw the moving circle 
-   if (imageVisible) {
+   if (imageVisible) { // draw the image of my cat
     drawGrowingImage();
    }
 
@@ -95,17 +92,6 @@ function draw() { // i create a background with the color of the dark sky
     if (moon.x > moon.stopPosition.x && moon.velocity.x > 0.7) {
         moon.x = moon.stopPosition.x;
         moon.velocity.isMoving= false;
-
-        if (imgSize > maxImgSize) {
-
-            console.log( "the image of my cat lives")
-        } else {
-
-            imgVisible= false;
-            console.log("the image of my cat dies")
-
-        }
-
     }
    
 } 
@@ -118,34 +104,10 @@ function draw() { // i create a background with the color of the dark sky
 
 function drawGrowingImage(){
 
-    imgSize=imgSize + imgGrothRate;
-
-    if (imgSize >= maxImgSize) {
-        imgSize = maxImgSize;
-    }
-
-    image(img, width/2, height/2, imgSize,imgSize); }
-
-    function wakeUpImage() {
-
-        imageVisible= true;
-        imgSize=50;
-        moonStop = false;
-        moon.x = 560;
-    }
-
-    function keyPressed(){
-
-        if ( KEY === 'C') 
-        {
-
-        wakeUpImage();
-
-        }
-
-
-    }
-
-
+    image(img, 400, 480, imgSize,imgSize); 
+    imgSize = imgSize;
+ 
+}
+   
 
 

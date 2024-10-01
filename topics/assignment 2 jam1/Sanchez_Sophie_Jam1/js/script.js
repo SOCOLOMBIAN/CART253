@@ -45,7 +45,7 @@ let imageVisible= true;
 let moonStop = true;
 let gameOver= false;
 let catAlive= false;
-let clickTime= 0;
+
 
     function preload() {
         img = loadImage("assets/images/XenaSleep.png");
@@ -81,7 +81,8 @@ function draw() { // i create a background with the color of the dark sky
    drawCircle(); // draw the moving circle 
 
    if (!gameOver){
-    imgSize= max(20, imgSize - imgShrinkRate);
+    imgSize= max(20, imgSize - imgRate);
+    drawGrowingImage();
    }
 
 
@@ -97,17 +98,14 @@ function draw() { // i create a background with the color of the dark sky
 
      if (catAlive) {
 
-         text( "Xena survived from the full moon", width/2, height/2); }
-
-         else { 
+         text( "Xena survived from the full moon", width/2, height/2);
+         image(img3, width/2,height/2, 2,100,200);
+     }else { 
              text("Xena got into an eternal dream",width/2, height/2);
-        
+             image(img2, width/2,height/2, 2,100,200);
          }
 
-        } if (imageVisible) { // draw the image of my cat
-            drawGrowingImage();
-           }
-
+        }
   }
 
    function drawMoon() {
@@ -134,12 +132,8 @@ function draw() { // i create a background with the color of the dark sky
 }
    function drawGrowingImage(){
 
-    image(img, 400, 480, imgSize,imgSize); 
+    image(img, 400, 480, imgSize,imgSize); // image of my cat Xena 
    }
-     if (!gameOver) {
-        image(img3, width/2,height/2, 100,200,200);
-
-     }
      
    function mousePressed() {
     let catX= 400 +imgSize/2;
@@ -148,16 +142,13 @@ function draw() { // i create a background with the color of the dark sky
      let clickOncat= dist( mouseX,mouseY,catX,catY) < imgSize/2;
     
      if (!gameOver && clickOncat) {
-        imgSize+ imgSize +5;
-
+        imgSize +=5;
      }
 
      if (imgSize >= maxImgSize){
 
         image(img3,0,0, 200,200);
-        
+
      }
-
-
 
    }

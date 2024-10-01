@@ -35,14 +35,18 @@ let movingCircle= { // creating the variables
 };
 
 let img; 
+let img2;
 let imgSize= 20;
 let maxImgSize=200;
 let imgGrothRate = 0.5;
 let imageVisible= true;
 let moonStop = true;
+let gameOver= false;
+let catAlive= false;
 
     function preload() {
-        img = loadImage("assets/images/XenaSleep.jpg");
+        img = loadImage("assets/images/XenaSleep.png");
+        img2 = loadImage("assets/images/XenaAfter.png");
       }
 
 function setup() {
@@ -71,18 +75,43 @@ function draw() { // i create a background with the color of the dark sky
 
    drawMoon(); // draw the moving moon 
    drawCircle(); // draw the moving circle 
+
    if (imageVisible) { // draw the image of my cat
     drawGrowingImage();
    }
 
-}
+   // conditions to know what happens to my cat
+
+  if (moon.x>= moon.stopPosition.x && moon.velocity.x > 0.7) {
+     gameOver= true;
+     catAlive= (imgSize >= maxImgSize);
+
+     // the results of the game 
+
+     textSize(38);
+     textAlign(CENTER);
+     fill(255);
+
+     if (catAlive) {
+
+         text( "Xena survived from the full moon", width/2, height/2); }
+
+         else { 
+             text("Xena got into an eternal dream",width/2, height/2);
+             image(img2, 700, 600);
+         }
+
+  }
 
    function drawMoon() {
 
     //draw the moon 
     fill(255);
     ellipse(moon.x, moon.y, moon.size);
-    moon.x+= moon.velocity.x;
+
+    if (! gameOver) {
+        moon.x+= moon.velocity.x;
+    }
 
     if (moon.x> width + moon.size) {
         moon.x = -moon.size; // reset the position of the moon
@@ -101,13 +130,18 @@ function draw() { // i create a background with the color of the dark sky
     movingCircle.x += 0.5;
    
 }
-
-function drawGrowingImage(){
+   function drawGrowingImage(){
 
     image(img, 400, 480, imgSize,imgSize); 
-    imgSize = imgSize;
- 
+   }
+
+   function mousePressed() {
+    let catX= 400 +imgSIze/2;
+    let catY= 480 +imgSize/2;
+
+    if (!gameOver && dist( mouseX,mouseY,catX,catY) < imgSize/2 ) {
+        imgSize = min(maxImgSize, imgSize +5);
+    }
+    
+   }
 }
-   
-
-

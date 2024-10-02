@@ -14,37 +14,37 @@ velocity: {
     y: 0,
     isMoving: true, 
 },
-    stopPosition: {
+    stopPosition: { // setting the moon position where it should stop 
         x:560,
         y:150
     }
 
 };
 
-let movingCircle= { // creating the variables 
+let movingCircle= { // creating the variables for the black circle that will be on top of the moon
 
     x: 110,
     y: 115,
     size:70,
 
- velocity: {
+ velocity: { // setting the same values for the circle moving as it can follow the moon mouvement 
     x: 0.5,
     y:0
  }
 
 };
 
-let img; 
-let img2;
-let img3;
-let imgSize= 20;
-let maxImgSize=200;
-let imgRate= 0.2;
-let imgGrothRate = 3;
-let imageVisible= true;
-let moonStop = true;
-let gameOver= false;
-let catAlive= false;
+let img; // image of my cat Xena growing because she is waking up
+let img2; // image of my cat Xena is she still alive 
+let img3; // image of my cat Xena is she didn't survive 
+let imgSize= 20; // size of the img1
+let maxImgSize=150; // maximun size for the img1 
+let imgRate= 0.2;   // the growth in wich the image will increase the size 
+let imageVisible= true; // indicates where it will be displayed 
+let moonStop = true; // control when it will stop moving 
+let gameOver= false; // indicates when the game will end 
+let catAlive= false; // indicates if Xena survived  
+let gameStart= false;
 
 
     function preload() {
@@ -70,44 +70,58 @@ function draw() { // i create a background with the color of the dark sky
     strokeWeight(0);
     triangle(320,210,520,500,-300,500);
 
-// ground 
+// ground of my canvas 
   fill(60,145,57);
   ellipse(60,640,1000,400);
 
   fill(69,168,66);
   ellipse(540,690,1000,400);
 
+   if (!gameStart) {
+    drawInstructions(); // instructions set at the beggining of the game 
+   } else { 
    drawMoon(); // draw the moving moon 
    drawCircle(); // draw the moving circle 
-
-   if (!gameOver){
+   
+   if (!gameOver){ // conditional to dont losse the game and ensure that the image size is not less than 20 
     imgSize= max(20, imgSize - imgRate);
-    drawGrowingImage();
+    drawGrowingImage(); //  showing the image on the screen 
    }
 
-
-  if (moon.x>= moon.stopPosition.x && moon.velocity.x > 0.7) {
+  if (moon.x>= moon.stopPosition.x && moon.velocity.x > 0.7) { // mouvent of the moon and conditional where it should stoop moving 
      gameOver= true;
      catAlive= (imgSize >= maxImgSize);
+     gameResults();
+  }
 
-     // the results of the game 
+}
 
+  }
+
+  function drawInstructions(){
+    fill('palegreen');
+    textFont('courier New');
+    textSize(26);
+    text( " Xena need to wake up before the full moon, click on the image of Xena to make her wake up and remember click fast and don't stop cliking,Press 'c' and start the game" );
+    textAlign(CENTER);
+    
+  }
+     function gameResults(){ // the results of the game depending on winning or lossing 
      textSize(38);
      textAlign(CENTER);
      fill(255);
 
-     if (catAlive) {
+     if (catAlive) { // image of Xena alive because she survived 
          image(img3, width/2,height/2,300,400);
          text( "Xena survived from the full moon", width/2, height/2);
-     }else { 
+     }else {  // image of Xena because she doesn't survived 
              image(img2, width/2,height/2,300,400);
              text("Xena got into an eternal dream",width/2, height/2);
          }
 
         }
-  }
-
-   function drawMoon() {
+  
+    function drawMoon() {
 
     //draw the moon 
     fill(255);

@@ -39,7 +39,7 @@ let img2; // image of my cat Xena is she still alive
 let img3; // image of my cat Xena is she didn't survive 
 let imgSize= 20; // size of the img1
 let maxImgSize=70; // maximun size for the img1 
-let imgRate= 0.1;   // the growth in wich the image will increase the size 
+let imgRate= 0.3;   // the growth in wich the image will increase the size 
 let imageVisible= true; // indicates where it will be displayed 
 let moonStop = true; // control when it will stop moving 
 let gameOver= false; // indicates when the game will end 
@@ -91,14 +91,14 @@ function draw() { // i create a background with the color of the dark sky
   if (moon.x>= moon.stopPosition.x && moon.velocity.x > 0.7) { // mouvent of the moon and conditional where it should stoop moving 
      gameOver= true;
      catAlive= (imgSize >= maxImgSize);
-     gameResults();
+     gameResults(); // show the results of winning or lossing 
   }
 
 }
 
   }
 
-  function drawInstructions(){
+  function drawInstructions(){ // instrsutions to start playing the game 
     fill('palegreen');
     textFont('courier New');
     textSize(20);
@@ -118,6 +118,7 @@ function draw() { // i create a background with the color of the dark sky
          text( "Xena survived from the full moon", width/2, height/2);
      }else {  // image of Xena because she doesn't survived 
              image(img2, width/2,height/2,300,300);
+             textSize(30);
              text("Xena got into an eternal dream",width/2, height/2);
          }
 
@@ -156,20 +157,19 @@ function draw() { // i create a background with the color of the dark sky
 
    }
      
-   function mousePressed() {
+   function mousePressed() { // position of the image of Xena 
     let catX= 400 +imgSize/2;
     let catY= 400 +imgSize/2;
 
-     let clickOncat= dist( mouseX,mouseY,catX,catY) < imgSize/2;
+     let clickOncat= dist( mouseX,mouseY,catX,catY) < imgSize/2; // mouse click with the bound of the image
     
-     if (!gameOver && clickOncat) {
+     if (!gameOver && clickOncat) { // game is not over and the click is on xena image 
         imgSize+=5;
      }
 
-     if (imgSize >= maxImgSize){
-
-        image(img3,0,0, 200,200);
-
+     if (imgSize >= maxImgSize){ // if the image is the same size of has the maximum size
+        image(img3,0,0, 200,200); // the image of xena that survived 
+   
      }
 
    }

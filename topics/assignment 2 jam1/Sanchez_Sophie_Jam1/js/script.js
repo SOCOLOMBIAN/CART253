@@ -38,8 +38,8 @@ let img; // image of my cat Xena growing because she is waking up
 let img2; // image of my cat Xena is she still alive 
 let img3; // image of my cat Xena is she didn't survive 
 let imgSize= 20; // size of the img1
-let maxImgSize=150; // maximun size for the img1 
-let imgRate= 0.2;   // the growth in wich the image will increase the size 
+let maxImgSize=70; // maximun size for the img1 
+let imgRate= 0.1;   // the growth in wich the image will increase the size 
 let imageVisible= true; // indicates where it will be displayed 
 let moonStop = true; // control when it will stop moving 
 let gameOver= false; // indicates when the game will end 
@@ -101,9 +101,10 @@ function draw() { // i create a background with the color of the dark sky
   function drawInstructions(){
     fill('palegreen');
     textFont('courier New');
-    textSize(26);
-    text( " Xena need to wake up before the full moon, click on the image of Xena to make her wake up and remember click fast and don't stop cliking,Press 'c' and start the game" );
-    textAlign(CENTER);
+    textSize(20);
+    text('Xena need to wake up before the full moon.', 20,50,760,200);
+    text('click on the image of Xena to make her wake up and remember dont stop,', 20,100,660,100);
+    text('Press "c" to start the game.',20,150,660,100);
     
   }
      function gameResults(){ // the results of the game depending on winning or lossing 
@@ -112,10 +113,11 @@ function draw() { // i create a background with the color of the dark sky
      fill(255);
 
      if (catAlive) { // image of Xena alive because she survived 
-         image(img3, width/2,height/2,300,400);
+         image(img3, width/2,height/2,200,300);
+         textSize(30);
          text( "Xena survived from the full moon", width/2, height/2);
      }else {  // image of Xena because she doesn't survived 
-             image(img2, width/2,height/2,300,400);
+             image(img2, width/2,height/2,300,300);
              text("Xena got into an eternal dream",width/2, height/2);
          }
 
@@ -127,7 +129,7 @@ function draw() { // i create a background with the color of the dark sky
     fill(255);
     ellipse(moon.x, moon.y, moon.size);
 
-    if (! gameOver) {
+    if (!gameOver) { // make the moon move 
         moon.x+= moon.velocity.x;
     }
 
@@ -144,8 +146,14 @@ function draw() { // i create a background with the color of the dark sky
    
 }
    function drawGrowingImage(){
+       image(img, 400, 400, imgSize,imgSize); // image of my cat Xena 
+   }
 
-    image(img, 400, 400, imgSize,imgSize); // image of my cat Xena 
+   function keyPressed(){
+     if (key === 'c') {
+       gameStart = true; // this condition allows to play the game when the letter c is pressed 
+}
+
    }
      
    function mousePressed() {
@@ -155,7 +163,7 @@ function draw() { // i create a background with the color of the dark sky
      let clickOncat= dist( mouseX,mouseY,catX,catY) < imgSize/2;
     
      if (!gameOver && clickOncat) {
-        imgSize +=5;
+        imgSize+=5;
      }
 
      if (imgSize >= maxImgSize){

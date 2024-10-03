@@ -6,9 +6,7 @@ Sophie Sanchez
 
 ## Description
 
-This project was inspired by a song wich talks about the moon.This project aims to have an interaction with the user 
-
-This description should help the reader understand what the program is, what any controls do, and perhaps what the desired experience it.
+This project was inspired by a song wich talks about the moon.This project aims to have an interaction and challenge the user to play the game of saving Xena from the full moon. Xena is sleeping, user will have the instructions at the begining of the interactive game where they have to press a command to start the game after, they will continue to interact with the game since they have to engage within because after they start playing the game the user has to interact with the game since the have to press the image with the mouse and don't stop pressing.The idea is to make the image of Xena growth (as an illusion as she was waking up). This is the reason wht the size has a maximum. and if the user stop of pressing the mouse the image will decreasse the size wich in consequence can make Xena not waking up at time before the full moon. 
 
 ## Credits
 

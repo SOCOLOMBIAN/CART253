@@ -48,9 +48,9 @@ let gameStart= false;
 
 
     function preload() {
-        img = loadImage("assets/images/XenaSleep.png");
-        img2 = loadImage("assets/images/XenaAfter.png");
-        img3= loadImage("assets/images/survived.png");
+        img = loadImage("../assets/images/XenaSleep.png");
+        img2 = loadImage("../assets/images/XenaAfter.png");
+        img3= loadImage("../assets/images/survived.png");
       }
 
 function setup() {
@@ -140,9 +140,9 @@ function draw() { // i create a background with the color of the dark sky
     }
    
 } 
-    function drawCircle() { // funciton circle moving  
+    function drawCircle() { // funciton of the black circle moving on top the moon to make it look as a semi-moon
     fill(0); // color of the circle 
-    ellipse(movingCircle.x,movingCircle.y,movingCircle.size);
+    ellipse(movingCircle.x,movingCircle.y,movingCircle.size); // 
     movingCircle.x += 0.5;
    
 }
@@ -157,14 +157,14 @@ function draw() { // i create a background with the color of the dark sky
 
    }
      
-   function mousePressed() { // position of the image of Xena 
+   function mousePressed() { // position of the image of Xena for the cliking mouse 
     let catX= 400 +imgSize/2;
     let catY= 400 +imgSize/2;
 
      let clickOncat= dist( mouseX,mouseY,catX,catY) < imgSize/2; // mouse click with the bound of the image
     
      if (!gameOver && clickOncat) { // game is not over and the click is on xena image 
-        imgSize+=5;
+        imgSize+=5; // the increase of the image 
      }
 
      if (imgSize >= maxImgSize){ // if the image is the same size of has the maximum size

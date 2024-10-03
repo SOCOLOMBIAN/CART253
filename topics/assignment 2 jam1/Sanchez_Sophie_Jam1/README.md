@@ -6,6 +6,8 @@ Sophie Sanchez
 
 ## Description
 
+This project was inspired by a song wich talks about the moon.This project aims to have an interaction with the user 
+
 This description should help the reader understand what the program is, what any controls do, and perhaps what the desired experience it.
 
 ## Credits

@@ -49,7 +49,7 @@ let gameStart= false;
 
     function preload() {
         img = loadImage("../assets/images/XenaSleep.png");
-        img2 = loadImage("../assets/images/XenaAfter.png");
+        img2 = loadImage("../assets/images/xenaAfter.png");
         img3= loadImage("../assets/images/survived.png");
       }
 

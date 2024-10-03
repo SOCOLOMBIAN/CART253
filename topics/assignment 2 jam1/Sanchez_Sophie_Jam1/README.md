@@ -2,7 +2,8 @@
 
 Sophie Sanchez 
 
-[View this project online](URL_FOR_THE_RUNNING_PROJECT)
+[View this project online](https://socolombian.github.io/CART253/topics/assignment%202%20jam1/Sanchez_Sophie_Jam1/)
+
 
 ## Description
 

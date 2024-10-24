@@ -16,22 +16,18 @@
 "use strict";
 
 // the tree on the canvas 
-const treePoints= [
+const treePoints=  [
     
-    [ 200,160],
-    [ 1, 500 ],
-    [ 1, 600 ],
-    [ 10, 600],
-    [ 230,250],
-    ];
-
-// the tree branches on the left side 
-const treeLeft=[
-    [ 100,300],
-    [ 20, 250],
+    [ 200,170], // top of the trunk 
+    [ 100,300], // branch start
+    [ 30, 250],
     [ 30, 270],
-    [ 110,320],
-    ]; 
+    [ 90,320 ],
+    [ 1, 500 ], // continue with the trunk 
+    [ 1, 600 ],
+    [ 3, 600 ],
+    [ 230,250],
+];
 
 // Our frog
 const frog = {
@@ -73,18 +69,26 @@ function setup() {
 
 function draw() {
     background("#87ceeb");
+
+    push();
+    fill(101,67,33);
+    stroke(81,47,13);
+    strokeWeight(1);
+    beginShape();
+    for (const [x,y] of treePoints){
+     vertex(x,y)
+    }
+    endShape(CLOSE);  
+    pop(); 
+
+
     moveFly();
     drawFly();
     moveFrog();
     moveTongue();
     drawFrog();
     checkTongueFlyOverlap();
-    beginShape();
-    for (const [x,y] of treePoints && treeLeft ){
-     vertex(x,y)
-    }
-    endShape(CLOSE);
-    
+   
 }
 
 /**

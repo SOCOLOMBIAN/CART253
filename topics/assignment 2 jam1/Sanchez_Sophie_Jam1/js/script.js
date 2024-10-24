@@ -1,7 +1,17 @@
-/**
- * Sophie Sanchez 
+/** 
  * The 2 moons
- 
+ * Sophie Sanchez 
+ * 
+ * A game about a cat who has to wake up before the full moon because if not
+ * she will be in an eternal dream 
+ * 
+ * controls:
+ * - click on c to start playing the game
+ * - click on mouse to make the image of Xena(the cat) growth
+ *  
+ * uses:
+ * p5.js
+ * https//p5js.org 
  */
 
 "use strict";

@@ -18,12 +18,20 @@
 // the tree on the canvas 
 const treePoints= [
     
-    [ 190,150],
+    [ 200,160],
     [ 1, 500 ],
     [ 1, 600 ],
-    [ 240,250],
+    [ 10, 600],
+    [ 230,250],
     ];
-    
+
+// the tree branches on the left side 
+const treeLeft=[
+    [ 100,300],
+    [ 20, 250],
+    [ 30, 270],
+    [ 110,320],
+    ]; 
 
 // Our frog
 const frog = {
@@ -72,8 +80,8 @@ function draw() {
     drawFrog();
     checkTongueFlyOverlap();
     beginShape();
-    for (const [x,y] of treePoints ){
-      vertex(x,y)
+    for (const [x,y] of treePoints && treeLeft ){
+     vertex(x,y)
     }
     endShape(CLOSE);
     

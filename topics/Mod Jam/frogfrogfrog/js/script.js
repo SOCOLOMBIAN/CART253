@@ -1,19 +1,29 @@
 /**
  * Frogfrogfrog
- * Pippin Barr
+ * Sophie Sanchez 
  * 
- * A game of catching flies with your frog-tongue
+ * A game of...
  * 
  * Instructions:
- * - Move the frog with your mouse
- * - Click to launch the tongue
- * - Catch flies
+ * - 
+ * - 
+ * - 
  * 
  * Made with p5
  * https://p5js.org/
  */
 
 "use strict";
+
+// the tree on the canvas 
+const treePoints= [
+    
+    [ 190,150],
+    [ 1, 500 ],
+    [ 1, 600 ],
+    [ 240,250],
+    ];
+    
 
 // Our frog
 const frog = {
@@ -47,7 +57,7 @@ const fly = {
  * Creates the canvas and initializes the fly
  */
 function setup() {
-    createCanvas(640, 480);
+    createCanvas(780,540);
 
     // Give the fly its first random position
     resetFly();
@@ -61,6 +71,12 @@ function draw() {
     moveTongue();
     drawFrog();
     checkTongueFlyOverlap();
+    beginShape();
+    for (const [x,y] of treePoints ){
+      vertex(x,y)
+    }
+    endShape(CLOSE);
+    
 }
 
 /**

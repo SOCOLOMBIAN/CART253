@@ -1,24 +1,23 @@
 # Starting points
 
+**Frog eating flies but it gets sad and harder to catch them**
 
-Finding metro tickets on the ground and trying to sell them
+an scoring system where the frog need to reach a certain number of points to...
 
-**Frog eating flies but it gets harder and harder to catch them**
+The appereance changes, became the most letal frog in the world Golden Poison
 
-an scoring system where the frog need to reach a certain number of points 
+a new implementation, instructions, ending? begining? 
 
-Crossing the street and it’s busy
+A special effect of music when the frog catches the flies 
 
-Riding a tricycle but the wheel keeps falling off
+New background with jungle/ Colombian Thematic to represent the Golden poison frog
 
-Shaving people’s heads in beautiful patterns and showing them at an art gallery
+New type of flies to cover the special needs of the evolution of the frog 
 
-Making cups out of clay and seeing what cafe customers say about them
+bonus points?
 
-Growing plants that eat you
+Continue until winning or stop and give a second change of life to the flies?
 
-Keeping a computer mouse as a pet and looking after it
+Dying for being greed?
 
-Rewiring a light
-
-Cooking spaghetti with a dog
+Became a good frog again? but what is being a good frog?

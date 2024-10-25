@@ -32,15 +32,15 @@ const treePoints=  [
 // Our frog
 const frog = {
     // The frog's body has a position and size
-    body: {
-        x: 320,
-        y: 520,
-        size: 150
+    head: {
+        x: 123,
+        y: 255,
+        size: 50
     },
     // The frog's tongue has a position, size, speed, and state
     tongue: {
-        x: undefined,
-        y: 480,
+        x: 123,
+        y: 155,
         size: 20,
         speed: 20,
         // Determines how the tongue moves each frame
@@ -127,7 +127,7 @@ function resetFly() {
  * Moves the frog to the mouse position on x
  */
 function moveFrog() {
-    frog.body.x = mouseX;
+    frog.head.x = mouseX;
 }
 
 /**
@@ -135,7 +135,7 @@ function moveFrog() {
  */
 function moveTongue() {
     // Tongue matches the frog's x
-    frog.tongue.x = frog.body.x;
+    frog.tongue.x = frog.head.x;
     // If the tongue is idle, it doesn't do anything
     if (frog.tongue.state === "idle") {
         // Do nothing
@@ -173,15 +173,50 @@ function drawFrog() {
     push();
     stroke("#ff0000");
     strokeWeight(frog.tongue.size);
-    line(frog.tongue.x, frog.tongue.y, frog.body.x, frog.body.y);
+    line(frog.tongue.x, frog.tongue.y, frog.head.x, frog.head.y);
     pop();
 
     // Draw the frog's body
     push();
-    fill("#00ff00");
+    fill(123, 245, 66);
     noStroke();
-    ellipse(frog.body.x, frog.body.y, frog.body.size);
+    rotate(PI/21); 
+    ellipse(155,170,80,90);
     pop();
+
+    // draw the frog's head 
+    push();
+    fill(123, 245, 66);
+    noStroke();
+    rotate(PI/-190); 
+    ellipse(150,140,70,50);
+    pop();
+
+    // draw the frog legs right 
+    push();
+    fill(113, 209, 75);
+    noStroke(0);
+    rotate(PI/-5);
+    rect(25,226,10,45);
+    pop();
+
+   // draw the frog legs left 
+    push();
+    fill(113, 200, 75);
+    noStroke(0);
+    rotate(PI/-5);
+    rect(-8,224,10,52);
+    pop();
+
+    // draw the frog left side 
+    push();
+    fill(113, 209, 75);
+    noStroke(0);
+    rotate(PI/600); 
+    ellipse(123,220,50,30);
+    pop();
+   
+    // draw the frog eyes 
 }
 
 /**

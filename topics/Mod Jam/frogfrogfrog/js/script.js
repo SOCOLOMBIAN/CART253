@@ -192,6 +192,40 @@ function drawFrog() {
     ellipse(150,140,70,50);
     pop();
 
+    // draw the frog left eye 
+
+    push();
+    fill(255);
+    noStroke();
+    rotate(PI/-190); 
+    ellipse(175,120,30,30);
+    pop();
+
+    //draw the frog right eye
+
+    push();
+    fill(255);
+    noStroke();
+    rotate(PI/-190); 
+    ellipse(147,120,30,30);
+    pop();
+
+    // draw the frog fingers left 
+    push();
+    fill(113, 209, 75);
+    noStroke(0);
+    rotate(PI/600); 
+    ellipse(160,220,15,15);
+    pop();
+    
+    // draw the frog finger right 
+    push();
+    fill(113, 209, 75);
+    noStroke(0);
+    rotate(PI/600); 
+    ellipse(185,197,15,15);
+    pop();
+
     // draw the frog legs right 
     push();
     fill(113, 209, 75);
@@ -215,8 +249,8 @@ function drawFrog() {
     rotate(PI/600); 
     ellipse(123,220,50,30);
     pop();
-   
-    // draw the frog eyes 
+
+
 }
 
 /**

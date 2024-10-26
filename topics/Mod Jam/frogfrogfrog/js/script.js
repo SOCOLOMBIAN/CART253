@@ -29,25 +29,41 @@ const treePoints=  [
     [ 230,250],
 ];
 
-// Our frog
-const frog = {
-    // The frog's body has a position and size
-    head: {
-        x: 123,
-        y: 255,
-        size: 50
-    },
+
+ const frog ={
+    
+    // the head of the frog for reference
+    headX:150, 
+    headY:140,
+
     // The frog's tongue has a position, size, speed, and state
-    tongue: {
-        x: 123,
-        y: 155,
+     tongue: {
+        x: 150,
+        y: 140,
+        maxLength:400,
+        angle:0,
         size: 20,
         speed: 20,
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
-    }
-};
+    },
 
+    // eye of the frog  positions 
+      leftEye:{
+        x: 175,
+        y: 120,
+        width:30,
+        height:30
+      },
+
+      rightEye:{
+        x: 147,
+        y: 120,
+        width:30,
+        height:30
+      },
+};
+    
 // Our fly
 // Has a position, size, and speed of horizontal movement
 const fly = {
@@ -62,7 +78,6 @@ const fly = {
  */
 function setup() {
     createCanvas(780,540);
-
     // Give the fly its first random position
     resetFly();
 }
@@ -70,6 +85,7 @@ function setup() {
 function draw() {
     background("#87ceeb");
 
+    //draw the tree
     push();
     fill(101,67,33);
     stroke(81,47,13);
@@ -81,10 +97,20 @@ function draw() {
     endShape(CLOSE);  
     pop(); 
 
-
+    // draw the black eyes of the frog 
+    drawBlackEye(frog.leftEye); // left black moving  eye 
+    drawBlackEye( frog.rightEye);// right black moving eye 
+    
     moveFly();
     drawFly();
-    moveFrog();
+    
+    frog.tongue.x= frog.headX;
+    frog.tongue.y=frog.headY;
+
+    if (frog.tongue.state=== "idle"){
+        frog.tongue.angle=atan2(mouseY -frog.tongue.baseY,mouseX-frog.tongue.baseX);
+    }
+
     moveTongue();
     drawFrog();
     checkTongueFlyOverlap();
@@ -124,18 +150,11 @@ function resetFly() {
 }
 
 /**
- * Moves the frog to the mouse position on x
- */
-function moveFrog() {
-    frog.head.x = mouseX;
-}
-
-/**
  * Handles moving the tongue based on its state
  */
 function moveTongue() {
     // Tongue matches the frog's x
-    frog.tongue.x = frog.head.x;
+    frog.tongue.x = frog.tongue.x
     // If the tongue is idle, it doesn't do anything
     if (frog.tongue.state === "idle") {
         // Do nothing
@@ -161,22 +180,11 @@ function moveTongue() {
 /**
  * Displays the tongue (tip and line connection) and the frog (body)
  */
+
+
 function drawFrog() {
-    // Draw the tongue tip
-    push();
-    fill("#ff0000");
-    noStroke();
-    ellipse(frog.tongue.x, frog.tongue.y, frog.tongue.size);
-    pop();
-
-    // Draw the rest of the tongue
-    push();
-    stroke("#ff0000");
-    strokeWeight(frog.tongue.size);
-    line(frog.tongue.x, frog.tongue.y, frog.head.x, frog.head.y);
-    pop();
-
-    // Draw the frog's body
+   
+   // Draw the frog's body
     push();
     fill(123, 245, 66);
     noStroke();
@@ -192,21 +200,13 @@ function drawFrog() {
     ellipse(150,140,70,50);
     pop();
 
-    // draw the frog left eye 
+    //draw the frog eyes (white part) 
 
     push();
     fill(255);
     noStroke();
     rotate(PI/-190); 
     ellipse(175,120,30,30);
-    pop();
-
-    //draw the frog right eye
-
-    push();
-    fill(255);
-    noStroke();
-    rotate(PI/-190); 
     ellipse(147,120,30,30);
     pop();
 
@@ -250,8 +250,9 @@ function drawFrog() {
     ellipse(123,220,50,30);
     pop();
 
-
 }
+
+
 
 /**
  * Handles the tongue overlapping the fly

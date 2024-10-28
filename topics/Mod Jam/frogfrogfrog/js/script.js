@@ -40,9 +40,10 @@ const treePoints=  [
      tongue: {
         x: 150,
         y: 140,
-        maxLength:400,
+        length: 30,
+        maxLength:300,
         angle:0,
-        size: 20,
+        size: 40,
         speed: 20,
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
@@ -100,7 +101,7 @@ function draw() {
     // draw the black eyes of the frog 
     drawBlackEye(frog.leftEye); // left black moving  eye 
     drawBlackEye( frog.rightEye);// right black moving eye 
-    
+
     moveFly();
     drawFly();
     
@@ -153,27 +154,24 @@ function resetFly() {
  * Handles moving the tongue based on its state
  */
 function moveTongue() {
-    // Tongue matches the frog's x
-    frog.tongue.x = frog.tongue.x
-    // If the tongue is idle, it doesn't do anything
-    if (frog.tongue.state === "idle") {
-        // Do nothing
+   
+if (frog.tongue.state=== "idle") {
+    frog.tongue.length = 30; 
+}
+
+else if( frog.tongue.state === "outbound") {
+    frog.tongue.length += frog.tongue.speed;
+    if( frog.tongue.length >= frog.tongue.maxLength) {
+        frog.tongue.state= "inbound";
     }
-    // If the tongue is outbound, it moves up
-    else if (frog.tongue.state === "outbound") {
-        frog.tongue.y += -frog.tongue.speed;
-        // The tongue bounces back if it hits the top
-        if (frog.tongue.y <= 0) {
-            frog.tongue.state = "inbound";
-        }
-    }
-    // If the tongue is inbound, it moves down
+
     else if (frog.tongue.state === "inbound") {
-        frog.tongue.y += frog.tongue.speed;
-        // The tongue stops if it hits the bottom
-        if (frog.tongue.y >= height) {
-            frog.tongue.state = "idle";
-        }
+         frog.tongue.length -= frog.tongue.speed;
+         if(frog.tongue.length <= 30) {
+            frog.tongue.state="idle";
+            frog.tongue.length=30;
+         }
+
     }
 }
 

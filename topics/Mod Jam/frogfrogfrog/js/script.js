@@ -41,7 +41,7 @@ const treePoints=  [
         x: 150,
         y: 140,
         length: 30,
-        maxLength:300,
+        maxLength:700,
         angle:0,
         size: 40,
         speed: 20,
@@ -105,8 +105,8 @@ function draw() {
     moveFly();
     drawFly();
     
-    frog.tongue.x= frog.headX;
-    frog.tongue.y=frog.headY;
+    frog.tongue.x= 185;
+    frog.tongue.y= 145;
 
     if (frog.tongue.state=== "idle"){
         frog.tongue.angle=atan2(mouseY -frog.tongue.baseY,mouseX-frog.tongue.baseX);
@@ -150,9 +150,7 @@ function resetFly() {
     fly.y = random(0, 300);
 }
 
-/**
- * Handles moving the tongue based on its state
- */
+// moving the tongue based on its state
 function moveTongue() {
    
 if (frog.tongue.state=== "idle") {
@@ -164,6 +162,7 @@ else if( frog.tongue.state === "outbound") {
     if( frog.tongue.length >= frog.tongue.maxLength) {
         frog.tongue.state= "inbound";
     }
+}
 
     else if (frog.tongue.state === "inbound") {
          frog.tongue.length -= frog.tongue.speed;
@@ -175,11 +174,7 @@ else if( frog.tongue.state === "outbound") {
     }
 }
 
-/**
- * Displays the tongue (tip and line connection) and the frog (body)
- */
-
-
+// draw the parts of the frog body 
 function drawFrog() {
    
    // Draw the frog's body
@@ -197,6 +192,18 @@ function drawFrog() {
     rotate(PI/-190); 
     ellipse(150,140,70,50);
     pop();
+
+   let tongueTipX = frog.tongue.x + cos(frog.tongue.angle) * frog.tongue.length;
+   let tongueTipY = frog.tongue.y + sin(frog.tongue.angle) * frog.tongue.length;
+
+   // draw the frog's tongue line 
+
+   push();
+   stroke("#ff0000");
+   strokeWeight(3);
+   line(frog.tongue.x,frog.tongue.y,frog.tongue.size);
+
+
 
     //draw the frog eyes (white part) 
 

@@ -15,6 +15,7 @@
 
 "use strict";
 
+
 // the tree on the canvas 
 const treePoints=  [
     
@@ -43,22 +44,31 @@ const treePoints=  [
         length: 1, // current length of the tongue 
         maxLength:600,
         angle:0,
-        size: 7, // size of the tongue tip 
+        size: 10, // size of the tongue tip 
         speed: 25,
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
     },
 
 };
+
+let flyImage;
     
 // Our fly
 // Has a position, size, and speed of horizontal movement
 const fly = {
     x: 0,
     y: 200, // Will be random
-    size: 10,
+    size: 20,
     speed: 3
 };
+
+
+function preload() {
+
+    flyImage= loadImage("assets/images/fly1.png");
+
+}
 
 /**
  * Creates the canvas and initializes the fly
@@ -117,9 +127,8 @@ function moveFly() {
  */
 function drawFly() {
     push();
-    noStroke();
-    fill("#000000");
-    ellipse(fly.x, fly.y, fly.size);
+    imageMode (CENTER);
+    image(flyImage,fly.x, fly.y, fly.size, fly.size);
     pop();
 }
 
@@ -250,7 +259,7 @@ function checkTongueFlyOverlap() {
     let tongueTipY = frog.tongue.baseY + sin(frog.tongue.angle) * frog.tongue.length;
 
     const d= dist(tongueTipX, tongueTipY,fly.x,fly.y);
-    const eaten = (d < frog.tongue.size/ 2 + fly.size/2);
+    const eaten = (d < frog.tongue.size/ 2 + flyImage.size2 +5);
 
     if (eaten) {
         resetFly();

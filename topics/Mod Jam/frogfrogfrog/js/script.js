@@ -41,11 +41,11 @@ const treePoints=  [
      tongue: {
         baseX: 180,
         baseY: 140,
-        length: 1, // current length of the tongue 
+        length: 0, // current length of the tongue 
         maxLength:600,
         angle:0,
-        size: 10, // size of the tongue tip 
-        speed: 25,
+        size: 7, // size of the tongue tip 
+        speed: 20,
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
     },
@@ -63,11 +63,11 @@ const fly = {
     speed: 3
 };
 
+let score= 0;
 
 function preload() {
 
     flyImage= loadImage("assets/images/fly1.png");
-
 }
 
 /**
@@ -81,6 +81,17 @@ function setup() {
 
 function draw() {
     background("#87ceeb");
+
+    // text for the instructions 
+    fill('brown');
+    textFont('courier New');
+    textSize(20);
+    text("OBTAIN 10 POINTS TO UPGRADE LEVEL!", 220, 20);
+    
+    // current score 
+    textSize(20);
+    fill('brown');
+    text("score" +score, 690,40)
 
     //draw the tree
     push();
@@ -219,7 +230,8 @@ function drawFrog() {
     ellipse(175,120,15,15);
     ellipse(147,120,15,15);
     pop();
-
+    
+    
     // draw the frog fingers left and right and back 
     push();
     fill(113, 209, 75);
@@ -258,12 +270,13 @@ function checkTongueFlyOverlap() {
     let tongueTipX = frog.tongue.baseX + cos(frog.tongue.angle) * frog.tongue.length;
     let tongueTipY = frog.tongue.baseY + sin(frog.tongue.angle) * frog.tongue.length;
 
-    const d= dist(tongueTipX, tongueTipY,fly.x,fly.y);
-    const eaten = (d < frog.tongue.size/ 2 + flyImage.size2 +5);
+    const d= dist(tongueTipX, tongueTipY, fly.x, fly.y);
+    const eaten = (d < frog.tongue.size/ 2 + fly.size /2 );
 
     if (eaten) {
         resetFly();
         frog.tongue.state= "inbound";
+        score+=1;
     }
 
 }
@@ -275,4 +288,5 @@ function mousePressed() {
     if (frog.tongue.state === "idle") {
         frog.tongue.state = "outbound";
     }
+
 }

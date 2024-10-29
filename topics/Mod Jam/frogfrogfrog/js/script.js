@@ -38,31 +38,17 @@ const treePoints=  [
 
     // The frog's tongue has a position, size, speed, and state
      tongue: {
-        x: 150,
-        y: 140,
-        length: 30,
-        maxLength:700,
+        baseX: 180,
+        baseY: 140,
+        length: 1, // current length of the tongue 
+        maxLength:600,
         angle:0,
-        size: 40,
-        speed: 20,
+        size: 7, // size of the tongue tip 
+        speed: 25,
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
     },
 
-    // eye of the frog  positions 
-      leftEye:{
-        x: 175,
-        y: 120,
-        width:30,
-        height:30
-      },
-
-      rightEye:{
-        x: 147,
-        y: 120,
-        width:30,
-        height:30
-      },
 };
     
 // Our fly
@@ -98,15 +84,10 @@ function draw() {
     endShape(CLOSE);  
     pop(); 
 
-    // draw the black eyes of the frog 
-    drawBlackEye(frog.leftEye); // left black moving  eye 
-    drawBlackEye( frog.rightEye);// right black moving eye 
 
     moveFly();
     drawFly();
-    
-    frog.tongue.x= 185;
-    frog.tongue.y= 145;
+
 
     if (frog.tongue.state=== "idle"){
         frog.tongue.angle=atan2(mouseY -frog.tongue.baseY,mouseX-frog.tongue.baseX);
@@ -185,27 +166,34 @@ function drawFrog() {
     ellipse(155,170,80,90);
     pop();
 
-    // draw the frog's head 
-    push();
-    fill(123, 245, 66);
-    noStroke();
-    rotate(PI/-190); 
-    ellipse(150,140,70,50);
-    pop();
-
-   let tongueTipX = frog.tongue.x + cos(frog.tongue.angle) * frog.tongue.length;
-   let tongueTipY = frog.tongue.y + sin(frog.tongue.angle) * frog.tongue.length;
+   let tongueTipX = frog.tongue.baseX + cos(frog.tongue.angle) * frog.tongue.length;
+   let tongueTipY = frog.tongue.baseY + sin(frog.tongue.angle) * frog.tongue.length;
 
    // draw the frog's tongue line 
 
    push();
-   stroke("#ff0000");
-   strokeWeight(3);
-   line(frog.tongue.x,frog.tongue.y,frog.tongue.size);
+   stroke(247,135,135);
+   strokeWeight(4);
+   line(frog.tongue.baseX,frog.tongue.baseY,tongueTipX, tongueTipY);
+   pop();
 
 
+   // draw the frog's tongue tip 
+   push();
+   fill(247,135,135);
+   noStroke();
+   ellipse(tongueTipX, tongueTipY, frog.tongue.size);
+   pop();
 
-    //draw the frog eyes (white part) 
+   // draw the frog's head 
+   push();
+   fill(123, 245, 66);
+   noStroke();
+   rotate(PI/-190); 
+   ellipse(150,140,70,50);
+   pop();
+
+   //draw the frog eyes (white part) 
 
     push();
     fill(255);
@@ -215,36 +203,32 @@ function drawFrog() {
     ellipse(147,120,30,30);
     pop();
 
-    // draw the frog fingers left 
+    // draw the frog black part of the eye 
     push();
-    fill(113, 209, 75);
-    noStroke(0);
-    rotate(PI/600); 
-    ellipse(160,220,15,15);
-    pop();
-    
-    // draw the frog finger right 
-    push();
-    fill(113, 209, 75);
-    noStroke(0);
-    rotate(PI/600); 
-    ellipse(185,197,15,15);
+    fill(0);
+    rotate(PI/-190);
+    ellipse(175,120,15,15);
+    ellipse(147,120,15,15);
     pop();
 
-    // draw the frog legs right 
+    // draw the frog fingers left and right and back 
+    push();
+    fill(113, 209, 75);
+    noStroke(0);
+    rotate(PI/600); 
+    ellipse(160,220,15,15); //left fingers 
+    ellipse(185,197,15,15); //rigth fingers
+    ellipse(145,245,15,15); // back fingers
+    pop();
+    
+    // draw the frog legs
     push();
     fill(113, 209, 75);
     noStroke(0);
     rotate(PI/-5);
     rect(25,226,10,45);
-    pop();
-
-   // draw the frog legs left 
-    push();
-    fill(113, 200, 75);
-    noStroke(0);
-    rotate(PI/-5);
     rect(-8,224,10,52);
+    rect(-35,255,10,30);
     pop();
 
     // draw the frog left side 
@@ -257,22 +241,22 @@ function drawFrog() {
 
 }
 
-
-
 /**
  * Handles the tongue overlapping the fly
  */
 function checkTongueFlyOverlap() {
-    // Get distance from tongue to fly
-    const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
-    // Check if it's an overlap
-    const eaten = (d < frog.tongue.size/2 + fly.size/2);
+   
+    let tongueTipX = frog.tongue.baseX + cos(frog.tongue.angle) * frog.tongue.length;
+    let tongueTipY = frog.tongue.baseY + sin(frog.tongue.angle) * frog.tongue.length;
+
+    const d= dist(tongueTipX, tongueTipY,fly.x,fly.y);
+    const eaten = (d < frog.tongue.size/ 2 + fly.size/2);
+
     if (eaten) {
-        // Reset the fly
         resetFly();
-        // Bring back the tongue
-        frog.tongue.state = "inbound";
+        frog.tongue.state= "inbound";
     }
+
 }
 
 /**

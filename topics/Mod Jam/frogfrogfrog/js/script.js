@@ -66,7 +66,7 @@ const fly = {
 const fly2= {
 
     x: 0,
-    y:300,
+    y:200,
     size:40,
     speed: 3.5,
     yOffset:0
@@ -78,7 +78,7 @@ let forest1;
 let forest2;
 let score= 0;
 let gameOver= false;
-let gameStart= false;
+let gameWin= false;
 
 function preload() {
 
@@ -101,17 +101,30 @@ function setup() {
 function draw() {
     
     //changing of the background 
-    if (frog.isTransformed ? forest2: forest1);
+    background(frog.isTransformed ? forest2: forest1);
+
+    if (gameOver){
+       displayGameOver();
+     return;
+}
+     if (gameWin) {
+        displayWinScreen();
+        return;
+     }
 
     // conditions for level-up the game 
     if (score >= 10 && !frog.isTransformed)
       { frog.isTransformed= true; 
         fly.speed =5;
       }
+
+      if (score >= 17) {
+        gameOver=true;
+        return;
+      }
         
     // the instructions 
       displayInstructions();
-
     // the score 
       displayScore();
 
@@ -121,8 +134,11 @@ function draw() {
     // move and draw the flies 
     moveFly();
     drawFly();
+
+    if(frog.isTransformed){
     moveFly2();
     drawFly2();
+    }
 
     if (frog.tongue.state=== "idle"){
         frog.tongue.angle=atan2(mouseY -frog.tongue.baseY,mouseX-frog.tongue.baseX);
@@ -132,6 +148,59 @@ function draw() {
     moveTongue();
     drawFrog();
     checkTongueFlyOverlap();
+    if (frog.isTransformed) {
+    checkTongueFly2Overlap(); 
+}
+
+if (frog.isTransformed){
+    displayQuitOption();
+}
+
+}
+function displayGameOver(){
+    
+    push();
+    textAlign(CENTER,CENTER);
+    textSize(24);
+    fill(255,0,0);
+    text("GAME OVER", width/2,height/2 -24);
+    pop();
+}
+
+function displayWinScreen(){
+    push();
+    textAlign(CENTER,CENTER);
+    textSize(24);
+    fill(255,215,0);
+    text("YOU WIN", width/2,height/2 -24);
+    text("Press R to play again", width/2,height/2 +90);
+    pop();   
+}
+
+function displayQuitOption(){
+  
+    push();
+    textAlign(RIGHT);
+    textSize(20);
+    fill(255,188,0);
+    text("Press Q to quit and win", width-20,40);
+    pop();
+}
+
+function keyPressed() {
+
+    if (key==='r' || key== 'R'){
+        score = 0;
+        gameOver=false;
+        gameWon=false;
+        frog.isTransformed=false;
+        fly.speed=3;
+        resetFly();
+        resetFly2();   
+    } else if (( key === 'q' || key=== 'Q') && frog.isTransformed) {
+        gameWon= true;
+}
+
 }
 
 function displayInstructions(){
@@ -139,7 +208,7 @@ function displayInstructions(){
     push();
     fill(255,188,0);
     textSize(20);
-    text(frog.isTransformed? "Level 2: Catch the flies and win or leave the flies and leave": "obtain 10 points to upgrade level", 50,20);
+    text(frog.isTransformed? "Obtain 10 points to upgrade level" : "Level 2: catch the flies or leave the flies live and press Q to quit", 50,20);
     pop();
 }
 
@@ -184,32 +253,32 @@ function moveFly2() {
         resetFly2(); }
      }
 
-// draw the image of the flyimage1 
-function drawFly() {
+   // draw the image of the flyimage1 
+    function drawFly() {
     push();
     imageMode (CENTER);
     image(flyImage,fly.x, fly.y, fly.size, fly.size);
     pop();
 }
 
-// draw the image of the flyimage2 
-function drawFly2() {
+    // draw the image of the flyimage2 
+    function drawFly2() {
     push();
     imageMode (CENTER);
-    image(flyImage2,fly.x, fly.y, fly.size, fly.size);
+    image(flyImage2,fly2.x, fly2.y + fly2.yOffset, fly2.size, fly2.size);
     pop();
 }
 
 // resets the flyimage1 with a random poition 
 function resetFly() {
     fly.x = 0;
-    fly.y = random(0, 500);
+    fly.y = random(0, 400);
 }
 
 // resets the flyimage2 with a random poition 
 function resetFly2() {
-    fly.x = 0;
-    fly.y = random(0, 500);
+    fly2.x = 0;
+    fly2.y = random(0, 700);
 }
 
 // moving the tongue based on its state
@@ -332,6 +401,21 @@ function checkTongueFlyOverlap() {
 
 }
 
+function checkTongueFly2Overlap() {
+   
+    let tongueTipX = frog.tongue.baseX + cos(frog.tongue.angle) * frog.tongue.length;
+    let tongueTipY = frog.tongue.baseY + sin(frog.tongue.angle) * frog.tongue.length;
+
+    const d= dist(tongueTipX, tongueTipY, fly2.x, fly2.y + fly2.yOffset);
+    const eaten = (d < frog.tongue.size + fly2.size )/2;
+
+    if (eaten) {
+        resetFly2();
+        frog.tongue.state= "inbound";
+        score+=2;
+    }
+
+}
 //Launch the tongue on click (if it's not launched yet)
 function mousePressed() {
     if (frog.tongue.state === "idle") {

@@ -99,7 +99,7 @@ function draw() {
     if (!frog.isTransformed) {
     text("OBTAIN 10 POINTS TO UPGRADE LEVEL!", 220, 20);
     } else {
-        text("LEVEL 2: CATCH THE FLIES AND WIN OR LEAVE THE FLIES AND LEAVE", 220,20);
+        text("LEVEL 2: CATCH THE FLIES AND WIN OR LEAVE THE FLIES AND LEAVE", 110,20);
     }
     pop();
     
@@ -170,7 +170,7 @@ function drawFly() {
  */
 function resetFly() {
     fly.x = 0;
-    fly.y = random(0, 300);
+    fly.y = random(0, 500);
 }
 
 // moving the tongue based on its state
@@ -199,15 +199,17 @@ else if( frog.tongue.state === "outbound") {
 
 // draw the parts of the frog body 
 function drawFrog() {
-   
-   // Draw the frog's body
-    push();
 
+    let bodyColor;
     if (frog.isTransformed){
-        fill(255,255,0);
+        bodyColor= color(255,255,0);
     } else {
-        fill(123, 245, 66);
+        bodyColor= color(123, 245, 66);
     }
+   
+    // Draw the frog's body
+    push();
+    fill(bodyColor);
     noStroke();
     rotate(PI/21); 
     ellipse(155,170,80,90);
@@ -217,13 +219,11 @@ function drawFrog() {
    let tongueTipY = frog.tongue.baseY + sin(frog.tongue.angle) * frog.tongue.length;
 
    // draw the frog's tongue line 
-
    push();
    stroke(247,135,135);
    strokeWeight(4);
    line(frog.tongue.baseX,frog.tongue.baseY,tongueTipX, tongueTipY);
    pop();
-
 
    // draw the frog's tongue tip 
    push();
@@ -234,11 +234,7 @@ function drawFrog() {
 
    // draw the frog's head 
    push();
-   if (frog.isTransformed) {
-    fill (255,255,0); 
- } else {
-    fill(123,245,66);
-   }
+   fill(bodyColor);
    noStroke();
    rotate(PI/-190); 
    ellipse(150,140,70,50);
@@ -256,40 +252,15 @@ function drawFrog() {
 
     // draw the frog black part of the eye 
     push();
-    if (frog.isTransformed){
-        fill(255,0,0); 
-    }  else {
-           fill(0);
-        }
+    fill(0);
     rotate(PI/-190);
     ellipse(175,120,15,15);
     ellipse(147,120,15,15);
     pop();
 
-    let legColor;
-
-    if (frog.isTransformed){
-        legColor= color(255, 255,  0); }
-    else {
-        legColor= color(113,209,75);
-    }
-
-    
-    
-    // draw the frog fingers left and right and back 
-    push();
-    fill(113, 209, 75);
-    noStroke(0);
-    rotate(PI/600); 
-    ellipse(160,220,15,15); //left fingers 
-    ellipse(185,197,15,15); //rigth fingers
-    ellipse(145,245,15,15); // back fingers
-    pop();
-    
-
     // draw the frog legs
     push();
-    fill(legColor);
+    fill(bodyColor);
     noStroke(0);
     rotate(PI/-5);
     rect(25,226,10,45);
@@ -297,16 +268,17 @@ function drawFrog() {
     rect(-35,255,10,30);
     pop();
 
-    // draw the frog left side 
+    // draw the frog fingers left and right and back 
     push();
-    fill(legColor);
+    fill(44,101,19);
     noStroke(0);
     rotate(PI/600); 
-    ellipse(123,220,50,30);
+    ellipse(160,220,15,15); //left fingers 
+    ellipse(185,197,15,15); //rigth fingers
+    ellipse(145,245,15,15); // back fingers
     pop();
 
 }
-
 /**
  * Handles the tongue overlapping the fly
  */

@@ -63,15 +63,29 @@ const fly = {
     speed: 3,
 };
 
+const fly2= {
+
+    x: 0,
+    y:300,
+    size:40,
+    speed: 3.5,
+    yOffset:0
+}
 
 let flyImage;
 let flyImage2;
+let forest1;
+let forest2;
 let score= 0;
+let gameOver= false;
+let gameStart= false;
 
 function preload() {
 
     flyImage= loadImage("assets/images/fly1.png");
-    flyImage2= loadImage("assets/images/fly2.png");
+    flyImage2=loadImage("assets/images/fly2.png");
+    forest1= loadImage("assets/images/forest.jpeg");
+    forest2= loadImage("assets/images/forest2.jpg");
 }
 
 /**
@@ -81,34 +95,63 @@ function setup() {
     createCanvas(780,540);
     // Give the fly its first random position
     resetFly();
+    resetFly2();
 }
 
 function draw() {
-    background("#87ceeb");
+    
+    //changing of the background 
+    if (frog.isTransformed ? forest2: forest1);
 
+    // conditions for level-up the game 
     if (score >= 10 && !frog.isTransformed)
       { frog.isTransformed= true; 
-        fly.speed= 5;
+        fly.speed =5;
       }
         
-    // text for the instructions 
-    push();
-    fill('brown');
-    textFont('courier New');
-    textSize(20);
-    if (!frog.isTransformed) {
-    text("OBTAIN 10 POINTS TO UPGRADE LEVEL!", 220, 20);
-    } else {
-        text("LEVEL 2: CATCH THE FLIES AND WIN OR LEAVE THE FLIES AND LEAVE", 110,20);
-    }
-    pop();
+    // the instructions 
+      displayInstructions();
+
+    // the score 
+      displayScore();
+
+    // draw tree  
+     drawTree();
     
-    // current score 
+    // move and draw the flies 
+    moveFly();
+    drawFly();
+    moveFly2();
+    drawFly2();
+
+    if (frog.tongue.state=== "idle"){
+        frog.tongue.angle=atan2(mouseY -frog.tongue.baseY,mouseX-frog.tongue.baseX);
+    }
+    
+    // mouvement of the frog and the tongue 
+    moveTongue();
+    drawFrog();
+    checkTongueFlyOverlap();
+}
+
+function displayInstructions(){
+    
+    push();
+    fill(255,188,0);
+    textSize(20);
+    text(frog.isTransformed? "Level 2: Catch the flies and win or leave the flies and leave": "obtain 10 points to upgrade level", 50,20);
+    pop();
+}
+
+function displayScore(){
     push();
     textSize(20);
-    fill('brown');
-    text("score" + score, 690,40)
+    fill(255,188,0);
+    text("score" +score,690,40);
     pop();
+}
+
+function drawTree(){
 
     //draw the tree
     push();
@@ -121,27 +164,9 @@ function draw() {
     }
     endShape(CLOSE);  
     pop(); 
-
-
-    moveFly();
-    drawFly();
-
-
-    if (frog.tongue.state=== "idle"){
-        frog.tongue.angle=atan2(mouseY -frog.tongue.baseY,mouseX-frog.tongue.baseX);
-    }
-
-    moveTongue();
-    drawFrog();
-    checkTongueFlyOverlap();
-
-   
 }
-
-/**
- * Moves the fly according to its speed
- * Resets the fly if it gets all the way to the right
- */
+// Moves the fly according to its speed
+//Resets the fly if it gets all the way to the right
 function moveFly() {
     // Move the fly
     fly.x += fly.speed;
@@ -150,25 +175,39 @@ function moveFly() {
         resetFly(); }
 }
 
-/**
- * Draws the fly as a black circle
- */
+function moveFly2() {
+    // Move the fly
+    fly2.x += fly2.speed;
+    fly2.yOffset= sin (frameCount*0.3)*5;
+    // Handle the fly going off the canvas
+    if (fly2.x > width) {
+        resetFly2(); }
+     }
+
+// draw the image of the flyimage1 
 function drawFly() {
     push();
     imageMode (CENTER);
-    if (frog.isTransformed){
-    fly.size= 40;
-    image(flyImage2,fly.x, fly.y, fly.size, fly.size);
-    } else {
-        image(flyImage,fly.x, fly.y, fly.size, fly.size);
-    }
+    image(flyImage,fly.x, fly.y, fly.size, fly.size);
     pop();
 }
 
-/**
- * Resets the fly to the left with a random y
- */
+// draw the image of the flyimage2 
+function drawFly2() {
+    push();
+    imageMode (CENTER);
+    image(flyImage2,fly.x, fly.y, fly.size, fly.size);
+    pop();
+}
+
+// resets the flyimage1 with a random poition 
 function resetFly() {
+    fly.x = 0;
+    fly.y = random(0, 500);
+}
+
+// resets the flyimage2 with a random poition 
+function resetFly2() {
     fly.x = 0;
     fly.y = random(0, 500);
 }
@@ -199,14 +238,8 @@ else if( frog.tongue.state === "outbound") {
 
 // draw the parts of the frog body 
 function drawFrog() {
+ let bodyColor= frog.isTransformed? color(255,255,0): color(123, 245, 66);
 
-    let bodyColor;
-    if (frog.isTransformed){
-        bodyColor= color(255,255,0);
-    } else {
-        bodyColor= color(123, 245, 66);
-    }
-   
     // Draw the frog's body
     push();
     fill(bodyColor);
@@ -252,7 +285,8 @@ function drawFrog() {
 
     // draw the frog black part of the eye 
     push();
-    fill(0);
+    fill(frog.isTransformed? color (247,18,18): color (0));
+    noStroke();
     rotate(PI/-190);
     ellipse(175,120,15,15);
     ellipse(147,120,15,15);
@@ -298,9 +332,7 @@ function checkTongueFlyOverlap() {
 
 }
 
-/**
- * Launch the tongue on click (if it's not launched yet)
- */
+//Launch the tongue on click (if it's not launched yet)
 function mousePressed() {
     if (frog.tongue.state === "idle") {
         frog.tongue.state = "outbound";

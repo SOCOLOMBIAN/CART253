@@ -61,7 +61,6 @@ const fly = {
     y: 200, // Will be random
     size: 20,
     speed: 3,
-    jitter: 2,
 };
 
 
@@ -148,8 +147,7 @@ function moveFly() {
     fly.x += fly.speed;
     // Handle the fly going off the canvas
     if (fly.x > width) {
-        resetFly();
-    }
+        resetFly(); }
 }
 
 /**
@@ -159,6 +157,7 @@ function drawFly() {
     push();
     imageMode (CENTER);
     if (frog.isTransformed){
+    fly.size= 40;
     image(flyImage2,fly.x, fly.y, fly.size, fly.size);
     } else {
         image(flyImage,fly.x, fly.y, fly.size, fly.size);
@@ -270,9 +269,9 @@ function drawFrog() {
     let legColor;
 
     if (frog.isTransformed){
-        legColor= fill(255, 255,  0); }
+        legColor= color(255, 255,  0); }
     else {
-        legColor= fill(113,209,75);
+        legColor= color(113,209,75);
     }
 
     

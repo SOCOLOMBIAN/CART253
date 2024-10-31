@@ -37,6 +37,9 @@ const treePoints=  [
     headX:150, 
     headY:140,
 
+    // transformation of the frog 
+    isTransformed: false,
+
     // The frog's tongue has a position, size, speed, and state
      tongue: {
         baseX: 180,
@@ -52,22 +55,24 @@ const treePoints=  [
 
 };
 
-let flyImage;
-    
-// Our fly
-// Has a position, size, and speed of horizontal movement
+// fly Has a position, size, and speed of horizontal movement
 const fly = {
     x: 0,
     y: 200, // Will be random
     size: 20,
-    speed: 3
+    speed: 3,
+    jitter: 2,
 };
 
+
+let flyImage;
+let flyImage2;
 let score= 0;
 
 function preload() {
 
     flyImage= loadImage("assets/images/fly1.png");
+    flyImage2= loadImage("assets/images/fly2.png");
 }
 
 /**
@@ -82,16 +87,29 @@ function setup() {
 function draw() {
     background("#87ceeb");
 
+    if (score >= 10 && !frog.isTransformed)
+      { frog.isTransformed= true; 
+        fly.speed= 5;
+      }
+        
     // text for the instructions 
+    push();
     fill('brown');
     textFont('courier New');
     textSize(20);
+    if (!frog.isTransformed) {
     text("OBTAIN 10 POINTS TO UPGRADE LEVEL!", 220, 20);
+    } else {
+        text("LEVEL 2: CATCH THE FLIES AND WIN OR LEAVE THE FLIES AND LEAVE", 220,20);
+    }
+    pop();
     
     // current score 
+    push();
     textSize(20);
     fill('brown');
-    text("score" +score, 690,40)
+    text("score" + score, 690,40)
+    pop();
 
     //draw the tree
     push();
@@ -117,6 +135,7 @@ function draw() {
     moveTongue();
     drawFrog();
     checkTongueFlyOverlap();
+
    
 }
 
@@ -139,7 +158,11 @@ function moveFly() {
 function drawFly() {
     push();
     imageMode (CENTER);
-    image(flyImage,fly.x, fly.y, fly.size, fly.size);
+    if (frog.isTransformed){
+    image(flyImage2,fly.x, fly.y, fly.size, fly.size);
+    } else {
+        image(flyImage,fly.x, fly.y, fly.size, fly.size);
+    }
     pop();
 }
 
@@ -180,7 +203,12 @@ function drawFrog() {
    
    // Draw the frog's body
     push();
-    fill(123, 245, 66);
+
+    if (frog.isTransformed){
+        fill(255,255,0);
+    } else {
+        fill(123, 245, 66);
+    }
     noStroke();
     rotate(PI/21); 
     ellipse(155,170,80,90);
@@ -207,7 +235,11 @@ function drawFrog() {
 
    // draw the frog's head 
    push();
-   fill(123, 245, 66);
+   if (frog.isTransformed) {
+    fill (255,255,0); 
+ } else {
+    fill(123,245,66);
+   }
    noStroke();
    rotate(PI/-190); 
    ellipse(150,140,70,50);
@@ -225,11 +257,24 @@ function drawFrog() {
 
     // draw the frog black part of the eye 
     push();
-    fill(0);
+    if (frog.isTransformed){
+        fill(255,0,0); 
+    }  else {
+           fill(0);
+        }
     rotate(PI/-190);
     ellipse(175,120,15,15);
     ellipse(147,120,15,15);
     pop();
+
+    let legColor;
+
+    if (frog.isTransformed){
+        legColor= fill(255, 255,  0); }
+    else {
+        legColor= fill(113,209,75);
+    }
+
     
     
     // draw the frog fingers left and right and back 
@@ -242,9 +287,10 @@ function drawFrog() {
     ellipse(145,245,15,15); // back fingers
     pop();
     
+
     // draw the frog legs
     push();
-    fill(113, 209, 75);
+    fill(legColor);
     noStroke(0);
     rotate(PI/-5);
     rect(25,226,10,45);
@@ -254,7 +300,7 @@ function drawFrog() {
 
     // draw the frog left side 
     push();
-    fill(113, 209, 75);
+    fill(legColor);
     noStroke(0);
     rotate(PI/600); 
     ellipse(123,220,50,30);
@@ -290,3 +336,4 @@ function mousePressed() {
     }
 
 }
+

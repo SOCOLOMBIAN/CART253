@@ -101,7 +101,7 @@ function draw() {
     
     //changing of the background 
     background(frog.isTransformed ? forest2: forest1);
-
+    
     if (gameOver){
        displayGameOver();
      return;
@@ -122,18 +122,19 @@ function draw() {
         gameOver=true;
         return;
       }
+
+    // instructions of the game 
+    gameInstructions();
         
-    // the instructions 
-     displayInstructions();
     // the score 
-     displayScore();
+    displayScore();
     
     // draw tree  
-     drawTree();
+    drawTree();
     
     // move and draw the flies 
-     moveFly();
-     drawFly();
+    moveFly();
+    drawFly();
 
     // set the statement for the new appeareance of the frog 
     if(frog.isTransformed){
@@ -159,6 +160,18 @@ function draw() {
     }
 }
 
+function gameInstructions(){
+
+    if( !frogIsTransformed) { 
+    // instructions for the first part of the game
+    push();
+    fill(255,255,0);
+    textSize(20);
+    text( "Obtain 10 points to upgrade level", 250,20);
+    pop();
+  }
+}
+
 // text if the game is loose 
 function displayGameOver(){
     push();
@@ -166,6 +179,7 @@ function displayGameOver(){
     textSize(24);
     fill(255,0,0);
     text("GAME OVER", width/2,height/2 -24);
+    text("Press R to play again", width/2, height/2 -30);
     pop();
 }
 
@@ -175,13 +189,13 @@ function displayWinScreen(){
     textAlign(CENTER,CENTER);
     textSize(24);
     fill(255,215,0);
-    text("YOU WIN", width/2,height/2 -24);
-    text("Press R to play again", width/2, height/2 -30);
+    text("YOU WON", width/2,height/2 -24);
+    text("Press R to play again", width/2, height/2 +30);
     pop();   
 }
 
+// text of the background 2 of the game 
 function displayQuitOption(){
-  
     push();
     textAlign(RIGHT);
     textSize(20);
@@ -192,27 +206,24 @@ function displayQuitOption(){
 
 function keyPressed() {
 
-    if (key==='r' || key== 'R' ){
-        score=0;
-        gameOver=true;
-        gameWon=true;
-        frog.isTransformed= true;
-        fly.speed=3;
-        resetFly();
-        resetFly2();   
-    } else if (( key === 'q' || key=== 'Q') && frog.isTransformed) {
-        gameWon= true;
+    if (key==='r' || key=== 'R' ){
+        resetGame();  
+      }
+     else if (( key === 'q' || key=== 'Q') && frog.isTransformed) {
+        gameWin= true;
 }
 
 }
 
-// instructions for the first part of the game 
-function displayInstructions(){
-    push();
-    fill(255,255,0);
-    textSize(20);
-    text( !frog.isTransformed? "Obtain 10 points to upgrade level": "50",250,20);
-    pop();
+// reset the game if win or loose 
+function resetGame(){
+     score=0;
+     gameOver =false;
+     gameWin =false;
+     frog.isTransformed=false;
+     fly.speed=3;
+     resetFly();
+     resetFly2();
 }
 
 // instructions for the score of the game each time the frog catch a fly
@@ -225,7 +236,6 @@ function displayScore(){
 }
 
 function drawTree(){
-
     //draw the tree
     push();
     fill(101,67,33);
@@ -249,11 +259,13 @@ function moveFly() {
         resetFly(); }
 }
 
+//moves the fly2 according to its speed
+// resets the fly if it get out of the canvas 
 function moveFly2() {
-    // Move the fly
+    // Move the fly2
     fly2.x += fly2.speed;
     fly2.yOffset= sin (frameCount*0.3)*5;
-    // Handle the fly going off the canvas
+    // Handle the fly2 going off the canvas
     if (fly2.x > width) {
         resetFly2(); }
      }
@@ -299,7 +311,6 @@ else if( frog.tongue.state === "outbound") {
         frog.tongue.state= "inbound";
     }
 }
-
     else if (frog.tongue.state === "inbound") {
          frog.tongue.length -= frog.tongue.speed;
          if(frog.tongue.length <= 30) {
@@ -387,10 +398,8 @@ function drawFrog() {
     pop();
 
 }
-/**
- * Handles the tongue overlapping the fly
- */
-function checkTongueFlyOverlap() {
+// Handles the tongue overlapping the fly
+ function checkTongueFlyOverlap() {
    
     let tongueTipX = frog.tongue.baseX + cos(frog.tongue.angle) * frog.tongue.length;
     let tongueTipY = frog.tongue.baseY + sin(frog.tongue.angle) * frog.tongue.length;
@@ -406,6 +415,7 @@ function checkTongueFlyOverlap() {
 
 }
 
+// Handles the tongue overlapping the fly2
 function checkTongueFly2Overlap() {
    
     let tongueTipX = frog.tongue.baseX + cos(frog.tongue.angle) * frog.tongue.length;

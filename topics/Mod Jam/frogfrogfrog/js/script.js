@@ -81,17 +81,17 @@ let gameWin= false;
 
 function preload() {
 
-    flyImage= loadImage("assets/images/fly1.png");
-    flyImage2=loadImage("assets/images/fly2.png");
-    forest1= loadImage("assets/images/forest.jpeg");
-    forest2= loadImage("assets/images/forest2.jpg");
+    flyImage= loadImage("assets/images/fly1.png"); 
+    flyImage2=loadImage("assets/images/fly2.png"); 
+    forest1 = loadImage("assets/images/forest.jpeg"); // image of the first background 
+    forest2 = loadImage("assets/images/forest2.jpg"); // image of the second background 
 }
 
-/**
- * Creates the canvas and initializes the fly
- */
+
+ // Creates the canvas and initializes the fly
 function setup() {
     createCanvas(780,540);
+
     // Give the fly its first random position
     resetFly();
     resetFly2();
@@ -116,29 +116,32 @@ function draw() {
       { frog.isTransformed= true; 
         fly.speed =5;
       }
-
+     
+    // conditionals to loose the game 
       if (score >= 17) {
         gameOver=true;
         return;
       }
         
     // the instructions 
-      displayInstructions();
+     displayInstructions();
     // the score 
-      displayScore();
-
+     displayScore();
+    
     // draw tree  
      drawTree();
     
     // move and draw the flies 
-    moveFly();
-    drawFly();
+     moveFly();
+     drawFly();
 
+    // set the statement for the new appeareance of the frog 
     if(frog.isTransformed){
-    moveFly2();
-    drawFly2();
+     moveFly2();
+     drawFly2();
     }
-
+    
+    // mouvement of the tongue calculating its angle 
     if (frog.tongue.state=== "idle"){
         frog.tongue.angle=atan2(mouseY -frog.tongue.baseY,mouseX-frog.tongue.baseX);
     }
@@ -149,15 +152,15 @@ function draw() {
     checkTongueFlyOverlap();
     if (frog.isTransformed) {
     checkTongueFly2Overlap(); 
-}
+    }
 
-if (frog.isTransformed){
+    if (frog.isTransformed){
     displayQuitOption();
+    }
 }
 
-}
+// text if the game is loose 
 function displayGameOver(){
-    
     push();
     textAlign(CENTER,CENTER);
     textSize(24);
@@ -166,13 +169,14 @@ function displayGameOver(){
     pop();
 }
 
+// text if the game is win 
 function displayWinScreen(){
     push();
     textAlign(CENTER,CENTER);
     textSize(24);
     fill(255,215,0);
     text("YOU WIN", width/2,height/2 -24);
-    text("Press R to play again", width/2,height/2 +90);
+    text("Press R to play again", width/2, height/2 -30);
     pop();   
 }
 
@@ -182,17 +186,17 @@ function displayQuitOption(){
     textAlign(RIGHT);
     textSize(20);
     fill(255,188,0);
-    text("Press Q to quit and win", width-20,40);
+    text("Level 2: catch the flies or leave the flies live and press Q to quit",350,20);
     pop();
 }
 
 function keyPressed() {
 
-    if (key==='r' || key== 'R'){
-        score = 0;
-        gameOver=false;
-        gameWon=false;
-        frog.isTransformed=false;
+    if (key==='r' || key== 'R' ){
+        score=0;
+        gameOver=true;
+        gameWon=true;
+        frog.isTransformed= true;
         fly.speed=3;
         resetFly();
         resetFly2();   
@@ -202,20 +206,21 @@ function keyPressed() {
 
 }
 
+// instructions for the first part of the game 
 function displayInstructions(){
-    
     push();
-    fill(255,188,0);
+    fill(255,255,0);
     textSize(20);
-    text(frog.isTransformed? "Obtain 10 points to upgrade level" : "Level 2: catch the flies or leave the flies live and press Q to quit", 50,20);
+    text( !frog.isTransformed? "Obtain 10 points to upgrade level": "50",250,20);
     pop();
 }
 
+// instructions for the score of the game each time the frog catch a fly
 function displayScore(){
     push();
     textSize(20);
-    fill(255,188,0);
-    text("score" +score,690,40);
+    fill(255,255,0);
+    text("score"+score,690,40);
     pop();
 }
 
@@ -233,6 +238,7 @@ function drawTree(){
     endShape(CLOSE);  
     pop(); 
 }
+
 // Moves the fly according to its speed
 //Resets the fly if it gets all the way to the right
 function moveFly() {

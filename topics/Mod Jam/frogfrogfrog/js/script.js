@@ -30,8 +30,7 @@ const treePoints=  [
     [ 230,250],
 ];
 
-
- const frog ={
+   const frog ={
     
     // the head of the frog for reference
     headX:150, 
@@ -49,7 +48,7 @@ const treePoints=  [
         angle:0,
         size: 7, // size of the tongue tip 
         speed: 20,
-        // Determines how the tongue moves each frame
+        //Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
     },
 
@@ -58,7 +57,7 @@ const treePoints=  [
 // fly Has a position, size, and speed of horizontal movement
 const fly = {
     x: 0,
-    y: 200, // Will be random
+    y: 300, // Will be random
     size: 20,
     speed: 3,
 };
@@ -66,9 +65,9 @@ const fly = {
 const fly2= {
 
     x: 0,
-    y:200,
+    y: 400, // will be random 
     size:40,
-    speed: 3.5,
+    speed:3.5,
     yOffset:0
 }
 

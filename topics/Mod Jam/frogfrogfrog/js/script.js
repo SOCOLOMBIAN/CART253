@@ -1,5 +1,5 @@
 /**
- * Frogfrogfrog
+ * RanaDorada
  * Sophie Sanchez 
  * 
  * A game of...
@@ -17,7 +17,7 @@
 
 
 // the tree on the canvas 
-const treePoints=  [
+const treePoints=  [ 
     
     [ 200,170], // top of the trunk 
     [ 100,300], // branch start
@@ -79,6 +79,10 @@ let score= 0;
 let gameOver= false;
 let gameWin= false;
 
+/**
+ * Add images for the background and the flies 
+ */
+
 function preload() {
 
     flyImage= loadImage("assets/images/fly1.png"); 
@@ -87,8 +91,9 @@ function preload() {
     forest2 = loadImage("assets/images/forest2.jpg"); // image of the second background 
 }
 
-
- // Creates the canvas and initializes the fly
+/**
+ * Creates the canvas and initializes the fly
+ */
 function setup() {
     createCanvas(780,540);
 
@@ -97,6 +102,9 @@ function setup() {
     resetFly2();
 }
 
+/**
+ * declare the different function ans statements 
+ */
 function draw() {
     
     //changing of the background 
@@ -160,6 +168,9 @@ function draw() {
     }
 }
 
+/**
+ * writtes the instructions for the beggining of the game 
+ */
 function gameInstructions(){
 
     if(!frog.isTransformed) { 
@@ -172,7 +183,9 @@ function gameInstructions(){
   }
 }
 
-// text if the game is loose 
+/**
+ * text if the game over
+ */
 function displayGameOver(){
     push();
     textAlign(CENTER,CENTER);
@@ -183,7 +196,9 @@ function displayGameOver(){
     pop();
 }
 
-// text if the game is win 
+/**
+ * text if win the game 
+ */
 function displayWinScreen(){
     push();
     textAlign(CENTER,CENTER);
@@ -194,7 +209,9 @@ function displayWinScreen(){
     pop();   
 }
 
-// text of the background 2 of the game 
+/**
+ * instructions for the 2 level 
+ */
 function displayQuitOption(){
     push();
     textAlign(CENTER,CENTER);
@@ -203,6 +220,10 @@ function displayQuitOption(){
     text("Level 2: catch the flies or leave the flies live pressing Q to quit",350,20);
     pop();
 }
+
+/**
+ * key pressed to restart game and quit game 
+ */
 
 function keyPressed() {
 
@@ -215,7 +236,9 @@ function keyPressed() {
 
 }
 
-// reset the game if win or loose 
+/**
+ * reset the game to the begining if loose or win
+ */
 function resetGame(){
      score=0;
      gameOver =false;
@@ -226,7 +249,9 @@ function resetGame(){
      resetFly2();
 }
 
-// instructions for the score of the game each time the frog catch a fly
+/**
+ * instructions for the score of the game each time the frog catch a fly
+ */
 function displayScore(){
     push();
     textSize(20);
@@ -235,6 +260,9 @@ function displayScore(){
     pop();
 }
 
+/**
+ * draw the tree
+ */
 function drawTree(){
     //draw the tree
     push();
@@ -249,8 +277,11 @@ function drawTree(){
     pop(); 
 }
 
-// Moves the fly according to its speed
-//Resets the fly if it gets all the way to the right
+/**
+ *  Moves the fly according to its speed
+    Resets the fly if it gets all the way to the right
+ */
+
 function moveFly() {
     // Move the fly
     fly.x += fly.speed;
@@ -259,8 +290,10 @@ function moveFly() {
         resetFly(); }
 }
 
-//moves the fly2 according to its speed
-// resets the fly if it get out of the canvas 
+/**
+ * moves the fly2 according to its speed
+   resets the fly if it get out of the canvas 
+ */
 function moveFly2() {
     // Move the fly2
     fly2.x += fly2.speed;
@@ -269,8 +302,9 @@ function moveFly2() {
     if (fly2.x > width) {
         resetFly2(); }
      }
-
-   // draw the image of the flyimage1 
+/**
+ draw the image of the fly 
+ */
     function drawFly() {
     push();
     imageMode (CENTER);
@@ -278,27 +312,33 @@ function moveFly2() {
     pop();
 }
 
-    // draw the image of the flyimage2 
+/**
+  draw the image of the fly2 
+ */
     function drawFly2() {
     push();
     imageMode (CENTER);
     image(flyImage2,fly2.x, fly2.y + fly2.yOffset, fly2.size, fly2.size);
     pop();
 }
-
-// resets the flyimage1 with a random poition 
+/**
+ * resets the flyimage1 with a random poition 
+ */
 function resetFly() {
     fly.x = 0;
     fly.y = random(0, 400);
 }
-
-// resets the flyimage2 with a random poition 
+/**
+ * resets the flyimage2 with a random poition 
+ */
 function resetFly2() {
     fly2.x = 0;
     fly2.y = random(0, 700);
 }
 
-// moving the tongue based on its state
+/**
+ * moving the tongue based on its state
+ */
 function moveTongue() {
    
 if (frog.tongue.state=== "idle") {
@@ -321,11 +361,13 @@ else if( frog.tongue.state === "outbound") {
     }
 }
 
-// draw the parts of the frog body 
+/**
+ * draw the parts of the frog body 
+ */ 
 function drawFrog() {
  let bodyColor= frog.isTransformed? color(255,255,0): color(123, 245, 66);
 
-    // Draw the frog's body
+    //Draw the frog's body
     push();
     fill(bodyColor);
     noStroke();
@@ -398,7 +440,10 @@ function drawFrog() {
     pop();
 
 }
-// Handles the tongue overlapping the fly
+
+/**
+ * Handles the tongue overlapping the fly
+ */ 
  function checkTongueFlyOverlap() {
    
     let tongueTipX = frog.tongue.baseX + cos(frog.tongue.angle) * frog.tongue.length;
@@ -415,7 +460,9 @@ function drawFrog() {
 
 }
 
-// Handles the tongue overlapping the fly2
+/**
+ * Handles the tongue overlapping the fly2
+ */ 
 function checkTongueFly2Overlap() {
    
     let tongueTipX = frog.tongue.baseX + cos(frog.tongue.angle) * frog.tongue.length;
@@ -431,7 +478,10 @@ function checkTongueFly2Overlap() {
     }
 
 }
-//Launch the tongue on click (if it's not launched yet)
+
+/**
+ * Launch the tongue on click (if it's not launched yet)
+ */ 
 function mousePressed() {
     if (frog.tongue.state === "idle") {
         frog.tongue.state = "outbound";

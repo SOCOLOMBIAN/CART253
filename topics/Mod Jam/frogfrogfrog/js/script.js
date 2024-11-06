@@ -162,8 +162,8 @@ function draw() {
 
 function gameInstructions(){
 
-    if( !frogIsTransformed) { 
-    // instructions for the first part of the game
+    if(!frog.isTransformed) { 
+    //instructions for the first part of the game
     push();
     fill(255,255,0);
     textSize(20);
@@ -178,8 +178,8 @@ function displayGameOver(){
     textAlign(CENTER,CENTER);
     textSize(24);
     fill(255,0,0);
-    text("GAME OVER", width/2,height/2 -24);
-    text("Press R to play again", width/2, height/2 -30);
+    text("GAME OVER, you had been very greedy", width/2,height/2 -24);
+    text("Press R to play again", width/2, height/2 +30);
     pop();
 }
 
@@ -188,8 +188,8 @@ function displayWinScreen(){
     push();
     textAlign(CENTER,CENTER);
     textSize(24);
-    fill(255,215,0);
-    text("YOU WON", width/2,height/2 -24);
+    fill(255,255,0);
+    text("YOU WON, you are a good frog", width/2,height/2 -24);
     text("Press R to play again", width/2, height/2 +30);
     pop();   
 }
@@ -197,10 +197,10 @@ function displayWinScreen(){
 // text of the background 2 of the game 
 function displayQuitOption(){
     push();
-    textAlign(RIGHT);
+    textAlign(CENTER,CENTER);
     textSize(20);
-    fill(255,188,0);
-    text("Level 2: catch the flies or leave the flies live and press Q to quit",350,20);
+    fill(255,255,0);
+    text("Level 2: catch the flies or leave the flies live pressing Q to quit",350,20);
     pop();
 }
 

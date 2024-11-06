@@ -2,12 +2,12 @@
  * RanaDorada
  * Sophie Sanchez 
  * 
- * A game of...
+ * A game of a normal frog transforming into the most dangerous frog of the world, the user have to decide the destiny of the frog, Ranadorada
  * 
  * Instructions:
- * - 
- * - 
- * - 
+ * - use the mouse pressed to catch the flies 
+ * - Press R to restart the game 
+ * - Press Q to quit the game at the level 2
  * 
  * Made with p5
  * https://p5js.org/

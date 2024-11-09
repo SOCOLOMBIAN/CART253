@@ -8,6 +8,8 @@
 
 "use strict";
 
+const speech= ["veni.","vidi.","vici","sensi malum"];
+
 /**
  * OH LOOK I DIDN'T DESCRIBE SETUP!!
 */

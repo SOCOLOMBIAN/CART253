@@ -13,9 +13,8 @@
  */
 
 "use strict";
-let currentTime= true;
-let milliseconds=0;
-let seconds=0;
+let currentTime= 0;
+let startTime=0;
 let gameOver= false;
 let gameWin=false;
 let gameStarted= false;
@@ -23,7 +22,11 @@ let gameStarted= false;
 let eye;
 
 
-let string =' Welcome to the magic world of sounnd and color, you will be asked to overcome challenges, win and see what you acomplish.';
+let string = ` 
+Welcome to the magic world of sound and color.
+you will be asked to overcome challenges,
+win and see what you acomplish. `;
+
 let currentCharacter= 0;
 
 function preload(){
@@ -39,22 +42,22 @@ function setup() {
 function draw() {
 
 //change the color of the background depending on the game status 
+if (gameOver) { 
+    background(eye);
+    displayGameOver();
+ }
 
-if (!gameStarted){
+ else if (!gameStarted){
     background(0,0,0);
     displayInstructions();
 }
-else if (!gameOver) {
+else {
     background(0,0,0);
     gameTimer();
+    displayGame1();
    }
-else { 
-    background(eye);
-    displayGameOver();
 
-    }
-
-}
+} 
 
        
 /* draw the function for the instruction page*/
@@ -72,41 +75,36 @@ function  displayInstructions() {
     //condition to start the game
     if (currentCharacter >= string.length) {
         textSize(16);
-        text('Press SPACE to start the game',width/2,height/2 +24);
+        textFont('courier');
+        text('Press SPACE to start the game',width/2,height/2 +100);
     }
     pop();
 
-    currentCharacter+= 0.1;
+    currentCharacter+= 0.3;
     currentCharacter= min(currentCharacter,string.length);
 }
 
 function keyPressed(){
 
-    if (!gameStarted && key === '' && currentCharacter >= string.length);
-    gameStarted= true;
-}
-
-
-       
-/* draw the function for the set timer on the pages*/
-
-function  gameTimer(){
-
-    noStroke();
-    fill(255,0,0);
-    textSize(30);
-
-    milliseconds= millis();
-    
-    seconds= milliseconds/1000;
-
-    currentTime= max(0, 2 -seconds);
-
-    text(int(currentTime),600,150);
-
-    if (currentTime == 0){
-        gameOver= true;
+    if (!gameStarted && key === ' ' && currentCharacter >= string.length){
+     gameStarted= true;
+     startTime= millis();
     }
+
+    if (gameOver){
+        resetGame();
+    }
+}    
+
+
+function resetGame(){
+
+    gameOver= false;
+    gameStarted=false;
+    milliseconds=0;
+    seconds=0;
+    currentCharacter=0;
+
 }
 
 function displayGameOver(){
@@ -116,10 +114,33 @@ function displayGameOver(){
     fill(255,0,0);
     textSize(20);
     textFont('courier');
-    text('GAME OVER, KEEP TRYING',width/2,height/2 );
-    text('Press any key to try again',width/2,height/2 +40);
-    Pop();
+    text('GAME OVER, KEEP TRYING',width/2, height/2);
+    text('Press any key to try again',width/2, height/2 +40);
+    pop();
 }
+
+function displayGame1(){
+    fill(255,255,0);
+    ellipse(350,325,50,50);
+
+}
+       
+/* draw the function for the set timer on the pages*/
+function  gameTimer(){
+
+    noStroke();
+    fill(255,0,0);
+    textSize(30);
+
+    currentTime= 3 - (millis()- startTime) / 1000;
+
+    text(int(currentTime),600,150);
+
+    if (currentTime <= 0){
+        gameOver= true;
+    }
+}
+
 
 
 

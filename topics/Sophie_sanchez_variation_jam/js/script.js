@@ -45,6 +45,7 @@ function draw() {
         displayGameOver();
 
     }
+
 }
 
 
@@ -65,13 +66,21 @@ function  gameTimer(){
     
     seconds= milliseconds/1000;
 
-    currentTime= max(0,3 -seconds);
+    currentTime= max(0, 2 -seconds);
 
     text(int(currentTime),600,150);
 
     if (currentTime == 0){
         gameOver= true;
     }
+}
+
+function displayGameOver(){
+
+    textAlign(CENTER);
+    textSize(20);
+    text('GAME OVER, KEEP TRYING',width/2,height/2 );
+    text('Press any key to try again',width/2,height/2 +40);
 }
 
 

@@ -18,8 +18,15 @@ let startTime=0;
 let gameOver= false;
 let gameWin=false;
 let gameStarted= false;
-
 let eye;
+
+/**
+ * set the position for the moving cirlces of color around the canvas 
+ */
+
+
+
+
 
 
 let string = ` 

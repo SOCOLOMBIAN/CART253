@@ -48,6 +48,15 @@ class Ball {
 
         this.x+=this.speedX;
         this.y+=this.speedY;
+
+        if( this.x - this.size/2 < 0 || this.x +this.size/2 > width){
+            this.speedX *= -1;
+        }
+
+        if( this.y -this.size/2 <  0 || this.y +this.size/2 > width){
+            this.speedY *= -1;
+        }
+
     }
 
 

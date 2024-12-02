@@ -24,10 +24,7 @@ let eye;
  * set the position for the moving cirlces of color around the canvas 
  */
 
-
-
-
-
+let circle
 
 let string = ` 
 Welcome to the magic world of sound and color.

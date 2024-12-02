@@ -23,15 +23,36 @@ let eye;
 /**
  * set the position for the moving cirlces of color around the canvas 
  */
-
-let circle
+let balls = [];
+let selectedBalls=[];
 
 let string = ` 
 Welcome to the magic world of sound and color.
 you will be asked to overcome challenges,
 win and see what you acomplish. `;
-
 let currentCharacter= 0;
+
+class Ball {
+
+    constructor(x,y,size,color) {
+      this.x=x;
+      this.y=y;
+      this.size=size;
+      this.color=color;
+      this.speedX= random(-3,3);
+      this.speedY= random(-3,3);
+      this.select=false;
+    }
+
+    move(){
+
+        this.x+=this.speedX;
+        this.y+=this.speedY;
+    }
+
+
+
+}
 
 function preload(){
 

@@ -23,7 +23,7 @@ let eye;
 let balls=[];
 let score=0;
 const ballCount=10;
-const ballSize=20;
+const ballSize=40;
 /**
  * set the position for the moving cirlces of color around the canvas 
  */
@@ -65,9 +65,7 @@ else {
    }
 
 } 
-
-
-       
+      
 /* draw the function for the instruction page*/
 function  displayInstructions() {
 
@@ -144,8 +142,8 @@ function displayGame1(){
         ball.x+= ball.speedX;
         ball.y+= ball.speedY;
 
-        fill(random(ball.color));
-        ellipse(ball.x,ball.y,ballSize);
+        fill(ball.color);
+        ellipse(ball.x,ball.y,random(ballSize));
 
         if (ball.x <0 || ball.x> width || ball.y<0 || ball.y>height) {
             balls.splice(i,1);
@@ -160,11 +158,14 @@ function createBall(){
         y: random(height),
         speedX:random(-3,3),
         speedY:random(-3,3),
-        color: color(random(100,200))    
+        color: color(random(255), random(255), random(255)),    
     };
     balls.push(ball);
 }
-       
+   
+function mousePressed(){
+     
+}
 /* draw the function for the set timer on the pages*/
 function  gameTimer(){
 
@@ -172,7 +173,7 @@ function  gameTimer(){
     fill(255,0,0);
     textSize(30);
 
-    currentTime= 3 - (millis()- startTime) / 1000;
+    currentTime= 30 - (millis()- startTime) / 1000;
 
     text(int(currentTime),600,150);
 

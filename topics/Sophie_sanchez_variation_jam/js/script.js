@@ -23,8 +23,7 @@ let eye;
 /**
  * set the position for the moving cirlces of color around the canvas 
  */
-let balls = [];
-let selectedBalls=[];
+
 
 let string = ` 
 Welcome to the magic world of sound and color.
@@ -32,49 +31,8 @@ you will be asked to overcome challenges,
 win and see what you acomplish. `;
 let currentCharacter= 0;
 
-class Ball {
 
-    constructor(x,y,size,color) {
-      this.x=x;
-      this.y=y;
-      this.size=size;
-      this.color=color;
-      this.speedX= random(-3,3);
-      this.speedY= random(-3,3);
-      this.select=false;
-    }
-
-    move(){
-
-        this.x+=this.speedX;
-        this.y+=this.speedY;
-
-        if( this.x - this.size/2 < 0 || this.x +this.size/2 > width){
-            this.speedX *= -1;
-        }
-
-        if( this.y -this.size/2 <  0 || this.y +this.size/2 > width){
-            this.speedY *= -1;
-        }
-    }
-
-    display(){
-
-        if(this.select){
-            stroke(255);
-            strokeWeight(3);
-        } else{
-            noStroke();
-        }
-        fill(this.color);
-        ellipse(this.x,this.y,this.size);
-
-        }
-    }
-
-
-
-}
+     
 
 function preload(){
 
@@ -105,6 +63,7 @@ else {
    }
 
 } 
+
 
        
 /* draw the function for the instruction page*/

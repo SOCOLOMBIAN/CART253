@@ -20,6 +20,9 @@ let gameWin=false;
 let gameStarted= false;
 let eye;
 
+let gameStage=1;
+let totalStage=3;
+
 let balls=[];
 let score=0;
 const ballCount=10;
@@ -27,7 +30,6 @@ const ballSize=40;
 /**
  * set the position for the moving cirlces of color around the canvas 
  */
-
 
 let string = ` 
 Welcome to the magic world of sound and color.
@@ -53,7 +55,6 @@ if (gameOver) {
     background(eye);
     displayGameOver();
  }
-
  else if (!gameStarted){
     background(0,0,0);
     displayInstructions();
@@ -61,9 +62,15 @@ if (gameOver) {
 else {
     background(0,0,0);
     gameTimer();
-    displayGame1()
+   
+    if(gameStage==1) {
+        displayGame1();
+    } else if (gameStage==2){
+        displayGame2();
+    } else if (gameStage==3){
+        displayGameWin();
+    }
    }
-
 } 
       
 /* draw the function for the instruction page*/
@@ -103,34 +110,13 @@ function keyPressed(){
 }    
 
 
-function resetGame(){
-
-    gameOver= false;
-    gameStarted=false;
-    milliseconds=0;
-    seconds=0;
-    currentCharacter=0;
-
-}
-
-function displayGameOver(){
-     
-    push();
-    textAlign(CENTER);
-    fill(255,0,0);
-    textSize(20);
-    textFont('courier');
-    text('GAME OVER, KEEP TRYING',width/2, height/2);
-    text('Press any key to try again',width/2, height/2 +40);
-    pop();
-}
-
 function displayGame1(){
 
     fill(255);
     textSize(24);
     textAlign(LEFT);
     text(`score: ${score}`,20,40);
+    text('Catch 10 colorballs to go on the next level',width/2,height/2);
 
     if(balls.length <ballCount) {
         createBall();
@@ -143,7 +129,7 @@ function displayGame1(){
         ball.y+= ball.speedY;
 
         fill(ball.color);
-        ellipse(ball.x,ball.y,random(ballSize));
+        ellipse(ball.x,ball.y,ballSize);
 
         if (ball.x <0 || ball.x> width || ball.y<0 || ball.y>height) {
             balls.splice(i,1);
@@ -164,8 +150,46 @@ function createBall(){
 }
    
 function mousePressed(){
-     
+      
+     if (!gameStarted || gameOver) return;
+
+     for (let i = balls.length -1; i >= 0; i--){
+        let ball= balls[i];
+        let distance= dist(mouseX,mouseY,ball.x,ball.y);
+
+        if (distance< ballSize/2) {
+            balls.splice(i,1);
+            score++;
+        }
+
+     }
 }
+
+function displayGame2(){
+
+    fill(255);
+    textSize(24);
+    textAlign(CENTER);
+    text('Stage 2 of challenges',width/2,height/2 +20);
+}
+
+
+function resetGame(){
+
+    gameOver= false;
+    gameStarted=false;
+    currentCharacter=0;
+
+    gameStage =1;
+
+    score=0;
+    balls= [];
+    currentTime=0;
+    startTime= millis();
+    gameWin=false;
+
+}
+
 /* draw the function for the set timer on the pages*/
 function  gameTimer(){
 
@@ -173,16 +197,38 @@ function  gameTimer(){
     fill(255,0,0);
     textSize(30);
 
-    currentTime= 30 - (millis()- startTime) / 1000;
+    currentTime= 15 - (millis()- startTime) / 1000;
 
     text(int(currentTime),600,150);
 
-    if (currentTime <= 0){
+    if (currentTime <= 0 ){
         gameOver= true;
     }
+
 }
 
+function displayGameOver(){
+     
+    push();
+    textAlign(CENTER);
+    fill(255,0,0);
+    textSize(20);
+    textFont('courier');
+    text('GAME OVER, KEEP TRYING',width/2, height/2);
+    text('Press any key to try again',width/2, height/2 +80);
+    pop();
+}
 
+function displayGameWin(){
+
+    push();
+    textAlign(CENTER);
+    fill(0,255,0);
+    textSize(24);
+    text('CONGRATULATIONS',width/2, height/2 -50);
+    text('You have completed all the challenges!',width/2, height/2);
+    pop();
+}
 
 
 

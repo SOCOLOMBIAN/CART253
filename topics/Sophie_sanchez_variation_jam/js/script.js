@@ -20,6 +20,10 @@ let gameWin=false;
 let gameStarted= false;
 let eye;
 
+let balls=[];
+let score=0;
+const ballCount=10;
+const ballSize=20;
 /**
  * set the position for the moving cirlces of color around the canvas 
  */
@@ -31,8 +35,6 @@ you will be asked to overcome challenges,
 win and see what you acomplish. `;
 let currentCharacter= 0;
 
-
-     
 
 function preload(){
 
@@ -59,7 +61,7 @@ if (gameOver) {
 else {
     background(0,0,0);
     gameTimer();
-    displayGame1();
+    displayGame1()
    }
 
 } 
@@ -126,9 +128,41 @@ function displayGameOver(){
 }
 
 function displayGame1(){
-    fill(255,255,0);
-    ellipse(350,325,50,50);
 
+    fill(255);
+    textSize(24);
+    textAlign(LEFT);
+    text(`score: ${score}`,20,40);
+
+    if(balls.length <ballCount) {
+        createBall();
+    }
+
+    for (let i=balls.length-1; i>=0; i--){
+        let ball= balls[i];
+
+        ball.x+= ball.speedX;
+        ball.y+= ball.speedY;
+
+        fill(random(ball.color));
+        ellipse(ball.x,ball.y,ballSize);
+
+        if (ball.x <0 || ball.x> width || ball.y<0 || ball.y>height) {
+            balls.splice(i,1);
+        }
+    }
+
+}
+
+function createBall(){
+    let ball={
+        x: random(width),
+        y: random(height),
+        speedX:random(-3,3),
+        speedY:random(-3,3),
+        color: color(random(100,200))    
+    };
+    balls.push(ball);
 }
        
 /* draw the function for the set timer on the pages*/

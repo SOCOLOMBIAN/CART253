@@ -56,7 +56,20 @@ class Ball {
         if( this.y -this.size/2 <  0 || this.y +this.size/2 > width){
             this.speedY *= -1;
         }
+    }
 
+    display(){
+
+        if(this.select){
+            stroke(255);
+            strokeWeight(3);
+        } else{
+            noStroke();
+        }
+        fill(this.color);
+        ellipse(this.x,this.y,this.size);
+
+        }
     }
 
 

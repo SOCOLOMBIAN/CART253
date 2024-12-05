@@ -18,6 +18,7 @@ let startTime=0;
 let gameOver= false;
 let gameWin=false;
 let gameStarted= false;
+let game2Started= false;
 let eye;
 
 let gameStage=1;
@@ -31,7 +32,8 @@ let player={
     x:350,
     y:325,
     size:50,
-    speed:5
+    speed:5,
+    color:255
 };
 
 let string = ` 
@@ -132,6 +134,7 @@ function displayGame1(){
     if (score>=10){
         gameStage++;
         score=0;
+        game2Started=false;
         startTime= millis();
     }
 
@@ -159,9 +162,10 @@ function createBall(){
     let ball={
         x: random(width),
         y: random(height),
-        speedX:random(-3,3),
-        speedY:random(-3,3),
-        color: color(random(255), random(255), random(255)),    
+        speedX:random(-4,4),
+        speedY:random(-4,4),
+        color: color(random(255), random(255), random(255)),  
+        size:random(20,60)  
     };
     balls.push(ball);
 }
@@ -182,6 +186,11 @@ function mousePressed(){
      }
 
   } else if (gameStage==2){
+
+    if(!game2Started){
+        game2Started= false;
+        starTime=millis();
+    }
 
     if (balls.length===0){
         createBall();
@@ -238,7 +247,7 @@ function displayGame2(){
             balls.splice(i,1);
             score++;
 
-            player.size +=3;
+            player.size +=2;
 
         }
     }

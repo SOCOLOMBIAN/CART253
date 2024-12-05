@@ -28,9 +28,13 @@ let balls=[];
 let score=0;
 const ballCount=10;
 const ballSize=40;
-/**
- * set the position for the moving cirlces of color around the canvas 
- */
+
+/** memory hame variables */
+
+let soundButtons= [];
+let gameSequence= [];
+let playerSequence= [];
+
 
 let string = ` 
 Welcome to the magic world of sound and color.

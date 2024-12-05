@@ -22,6 +22,7 @@ let eye;
 
 let gameStage=1;
 let totalStage=3;
+let game2Ready= true;
 
 let balls=[];
 let score=0;
@@ -44,8 +45,7 @@ function preload(){
 }
 
 function setup() {
-    createCanvas(700, 650);
-    
+    createCanvas(700, 650);    
 }
 
 function draw() {
@@ -99,14 +99,18 @@ function  displayInstructions() {
 
 function keyPressed(){
 
-    if (!gameStarted && key === ' ' && currentCharacter >= string.length){
-     gameStarted= true;
-     startTime= millis();
-    }
 
     if (gameOver){
+        gameOver=false;
         resetGame();
+        gameStarted=true;
+        return;
     }
+
+    if (!gameStarted && key === ' ' && currentCharacter >= string.length){
+        gameStarted= true;
+        startTime= millis();
+       }
 }    
 
 
@@ -116,7 +120,13 @@ function displayGame1(){
     textSize(24);
     textAlign(LEFT);
     text(`score: ${score}`,20,40);
-    text('Catch 10 colorballs to go on the next level',width/2,height/2);
+    text('Catch 10 colorballs to go on the next level',150,20);
+
+    if (score>=10){
+        gameStage++;
+        score=0;
+        startTime= millis();
+    }
 
     if(balls.length <ballCount) {
         createBall();
@@ -153,6 +163,7 @@ function mousePressed(){
       
      if (!gameStarted || gameOver) return;
 
+     if (gameStage== 1){
      for (let i = balls.length -1; i >= 0; i--){
         let ball= balls[i];
         let distance= dist(mouseX,mouseY,ball.x,ball.y);
@@ -163,30 +174,48 @@ function mousePressed(){
         }
 
      }
+ }
+
+    if (gameStage ==2 && game2Ready){
+        game2Ready=false;
+        startTime=millis();
+    }
 }
+
 
 function displayGame2(){
 
     fill(255);
     textSize(24);
-    textAlign(CENTER);
-    text('Stage 2 of challenges',width/2,height/2 +20);
-}
 
+    if (game2Ready){
+    textAlign(CENTER);
+    text('click anywhere to start Game 2',width/2,height/2); 
+    }
+    
+    else{
+        textAlign(CENTER);
+        text('stage 2 of challenges',width/2,height/2); 
+    }
+
+ 
+}
 
 function resetGame(){
 
     gameOver= false;
-    gameStarted=false;
+    gameStarted=true;
     currentCharacter=0;
 
-    gameStage =1;
+    gameStage=1;
+    
 
     score=0;
     balls= [];
     currentTime=0;
     startTime= millis();
     gameWin=false;
+    game2Ready=true;
 
 }
 
@@ -197,14 +226,26 @@ function  gameTimer(){
     fill(255,0,0);
     textSize(30);
 
+    if (gameStage==1){
     currentTime= 15 - (millis()- startTime) / 1000;
 
-    text(int(currentTime),600,150);
-
-    if (currentTime <= 0 ){
-        gameOver= true;
+    if (currentTime<=0){
+        gameOver=true;
+        return;
     }
+    text(int(currentTime),600,150);
+  } else if (gameStage==2){
+    if (!game2Ready){
+        currentTime=30 -(millis()-startTime)/ 1000;
 
+        if (currentTime <= 0){
+            gameOver= true;
+            return;
+        }
+        text(int(currentTime),600,150);
+
+    }
+ }
 }
 
 function displayGameOver(){

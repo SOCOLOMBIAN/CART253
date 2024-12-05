@@ -21,15 +21,18 @@ let gameStarted= false;
 let eye;
 
 let gameStage=1;
-let totalStage=3;
-let game2Ready= true;
-
 let balls=[];
 let score=0;
 const ballCount=10;
 const ballSize=40;
 
-/** memory hame variables */
+let player={
+
+    x:350,
+    y:325,
+    size:50,
+    speed:5
+};
 
 let string = ` 
 Welcome to the magic world of sound and color.
@@ -100,7 +103,6 @@ function  displayInstructions() {
 
 function keyPressed(){
 
-
     if (gameOver){
         gameOver=false;
         resetGame();
@@ -112,6 +114,10 @@ function keyPressed(){
         gameStarted= true;
         startTime= millis();
        }
+    
+    if (gameStage==2){
+        startTime= millis();
+    }
 }    
 
 
@@ -173,45 +179,79 @@ function mousePressed(){
             balls.splice(i,1);
             score++;
         }
-
      }
- }
 
-    if (gameStage ==2){
-        game2Ready=false;
-        startTime=millis();
- 
+  } else if (gameStage==2){
+
+    if (balls.length===0){
+        createBall();
+    }
+  }
 }
 
-}
 
 function displayGame2(){
 
     fill(255);
     textSize(24);
+    textAlign(LEFT);
+    text(`score: ${score}`,20,40);
+    text('Use arrow keys to eat the balls',150,20); 
 
-    if (game2Ready){
-    textAlign(CENTER);
-    text('click anywhere to start Game 2',width/2,height/2); 
+    if (keyIsDown(LEFT_ARROW)) {
+       player.x -= player.speed;
     }
 
-}
+    if (keyIsDown(RIGHT_ARROW)) {
+        player.x += player.speed;
+     }
 
-function resetGame(){ 
+     if (keyIsDown(UP_ARROW)) {
+        player.y-= player.speed;
+     }
+     
+     if (keyIsDown(DOWN_ARROW)) {
+        player.y+= player.speed;
+     }
 
-    gameOver= false;
-    gameStarted=true;
-    currentCharacter=0;
+    player.x= constrain(player.x,0,width);
+    player.y= constrain(player.y,0,height);
 
-    gameStage=1;
-    score=0;
-    balls= [];
-    currentTime=0;
-    startTime= millis();
-    gameWin=false;
-    game2Ready=true;
+    if (balls.length < ballCount){
+        createBall();
+    }
 
-}
+    for (let i= balls.length -1; i>= 0; i--) {
+        let ball=balls[i];
+
+        ball.x += ball.speedX;
+        ball.y += ball.speedY;
+
+        if (ball.x <0 ||ball.x > width) ball.speedX *= -1;
+        if (ball.y <0 ||ball.y > height) ball.speedY *= -1;
+
+        fill(ball.color);
+        ellipse(ball.x,ball.y,ballSize);
+
+        let distance= dist(player.x,player.y,ball.x,ball.y);
+        if (distance< (player.size+ballSize) /2) {
+            balls.splice(i,1);
+            score++;
+
+            player.size +=3;
+
+        }
+    }
+
+    fill(204,204,255);
+    square(player.x,player.y,player.size);
+
+    // win condition
+    if (score >=10){
+        gameStage++;
+        score=0;
+    }
+ }
 
 /* draw the function for the set timer on the pages*/
 function  gameTimer(){
@@ -229,7 +269,6 @@ function  gameTimer(){
     }
     text(int(currentTime),600,150);
   } else if (gameStage==2){
-    if (!game2Ready){
         currentTime=30 -(millis()-startTime)/ 1000;
 
         if (currentTime <= 0){
@@ -240,6 +279,28 @@ function  gameTimer(){
 
     }
  }
+
+
+function resetGame(){ 
+
+    gameOver= false;
+    gameStarted=true;
+    currentCharacter=0;
+
+    gameStage=1;
+    score=0;
+    balls= [];
+    currentTime=0;
+    startTime= millis();
+    gameWin=false;
+
+    player= {
+        x:350,
+        y:325,
+        size:50,
+        speed:5
+    };
+
 }
 
 function displayGameOver(){

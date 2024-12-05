@@ -257,13 +257,16 @@ function displayGame2(){
     
     else{
         textAlign(CENTER);
-        text('stage 2 of challenges',width/2,height/2); 
-    }
+        text(`Memory Game-Round ${currentSound}`,width/2,height/2-50); 
 
- 
+        soundButtons.forEach(button=> {
+            fill(button.color);
+            rect(button.x,button.y,button.w,button.h);
+        });
+    } 
 }
 
-function resetGame(){
+function resetGame(){ 
 
     gameOver= false;
     gameStarted=true;

@@ -31,14 +31,6 @@ const ballSize=40;
 
 /** memory hame variables */
 
-let soundButtons= [];
-let gameSequence= [];
-let playerSequence= [];
-let currentSound= 1;
-let playingSequence=false;
-let soundA, soundB, soundC,soundD;
-
-
 let string = ` 
 Welcome to the magic world of sound and color.
 you will be asked to overcome challenges,
@@ -50,65 +42,12 @@ function preload(){
 
      eye= loadImage("assets/images/ojo.jpg");
 
-     // sound files
-     soundA=loadSound("assets/sounds/soundA.mp3");
-     soundB=loadSound("assets/sounds/soundB.mp3");
-     soundC=loadSound("assets/sounds/soundC.mp3");
-     soundD=loadSound("assets/sounds/soundD.mp3");
 }
 
 function setup() {
     createCanvas(700, 650);    
 
-    setSoundButtons();
-
 }
-
-function setSoundButtons(){
-    let buttonSize= 100;
-    let spacing= 20;
-
-    soundButtons= [
-
-        {
-            x:width/2 - buttonSize-spacing,
-            y:height/2 +100,
-            w:buttonSize,
-            h:buttonSize,
-            sound:soundA,
-            color:color(255,0,0)
-        },
-        {
-            x:width/2 + spacing, 
-            y:height/2 +100,
-            w:buttonSize,
-            h:buttonSize,
-            sound:soundB,
-            color:color(0,255,0)
-        },
-        {
-            x:width/2 -buttonSize - spacing, 
-            y:height/2 +220,
-            w:buttonSize,
-            h:buttonSize,
-            sound:soundC,
-            color:color(0,0,255)
-        },
-        { 
-            x:width/2 + spacing, 
-            y:height/2 +220,
-            w:buttonSize,
-            h:buttonSize,
-            sound:soundD,
-            color:color(255,255,0)
-
-        }
-    ];
-}
-
-
-        
-    
 
 function draw() {
 
@@ -238,12 +177,13 @@ function mousePressed(){
      }
  }
 
-    if (gameStage ==2 && game2Ready){
+    if (gameStage ==2){
         game2Ready=false;
         startTime=millis();
-    }
+ 
 }
 
+}
 
 function displayGame2(){
 
@@ -254,16 +194,7 @@ function displayGame2(){
     textAlign(CENTER);
     text('click anywhere to start Game 2',width/2,height/2); 
     }
-    
-    else{
-        textAlign(CENTER);
-        text(`Memory Game-Round ${currentSound}`,width/2,height/2-50); 
 
-        soundButtons.forEach(button=> {
-            fill(button.color);
-            rect(button.x,button.y,button.w,button.h);
-        });
-    } 
 }
 
 function resetGame(){ 
@@ -273,8 +204,6 @@ function resetGame(){
     currentCharacter=0;
 
     gameStage=1;
-    
-
     score=0;
     balls= [];
     currentTime=0;

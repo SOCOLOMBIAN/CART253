@@ -34,6 +34,9 @@ const ballSize=40;
 let soundButtons= [];
 let gameSequence= [];
 let playerSequence= [];
+let currentSound= 1;
+let playingSequence=false;
+let soundA, soundB, soundC,soundD;
 
 
 let string = ` 
@@ -46,10 +49,23 @@ let currentCharacter= 0;
 function preload(){
 
      eye= loadImage("assets/images/ojo.jpg");
+
+     // sound files
+     soundA=loadSound("assets/sounds/soundA.mp3");
+     soundB=loadSound("assets/sounds/soundB.mp3");
+     soundC=loadSound("assets/sounds/soundC.mp3");
+     soundD=loadSound("assets/sounds/soundD.mp3");
 }
 
 function setup() {
     createCanvas(700, 650);    
+
+    setSoundButtons();
+
+}
+
+function setSoundButtons(){
+    
 }
 
 function draw() {

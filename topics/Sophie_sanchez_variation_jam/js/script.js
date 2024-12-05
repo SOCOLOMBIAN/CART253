@@ -65,8 +65,50 @@ function setup() {
 }
 
 function setSoundButtons(){
-    
+    let buttonSize= 100;
+    let spacing= 20;
+
+    soundButtons= [
+
+        {
+            x:width/2 - buttonSize-spacing,
+            y:height/2 +100,
+            w:buttonSize,
+            h:buttonSize,
+            sound:soundA,
+            color:color(255,0,0)
+        },
+        {
+            x:width/2 + spacing, 
+            y:height/2 +100,
+            w:buttonSize,
+            h:buttonSize,
+            sound:soundB,
+            color:color(0,255,0)
+        },
+        {
+            x:width/2 -buttonSize - spacing, 
+            y:height/2 +220,
+            w:buttonSize,
+            h:buttonSize,
+            sound:soundC,
+            color:color(0,0,255)
+        },
+        { 
+            x:width/2 + spacing, 
+            y:height/2 +220,
+            w:buttonSize,
+            h:buttonSize,
+            sound:soundD,
+            color:color(255,255,0)
+
+        }
+    ];
 }
+
+
+        
+    
 
 function draw() {
 

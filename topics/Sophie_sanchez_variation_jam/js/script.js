@@ -46,7 +46,8 @@ let player={
 
 /** text for game instructions */
 let string = ` 
-Welcome to the brain challenge. Train the cognitive skills trough interactive games`;
+Welcome to the brain challenge. 
+Train the cognitive skills trough interactive games`;
 let currentCharacter= 0;
 
 
@@ -117,10 +118,16 @@ function  displayInstructions() {
 /** reset the game is game is over */
 function keyPressed(){
 
-    if (gameOver){
+    if (gameOver || gameWin) {
+
+        backgroundMusic.loop();
+
         gameOver=false;
+        gameWin=false;
+        gameStarted=false;
+        currentCharacter=0;
+
         resetGame();
-        gameStarted=true;
         return;
     }
 
@@ -225,7 +232,7 @@ function displayGame2(){
     } else {
         fill(204,0,0);
         textAlign(CENTER);
-        text('Use arrow keys to eat the balls, get 17 to win',350,20); 
+        text('Use arrow keys to eat the balls, get 15 to win',350,20); 
     }
   
 if (game2Started){ // player mouvement controls 
@@ -280,7 +287,7 @@ if (game2Started){ // player mouvement controls
 }
 
     // win condition
-    if (score >=17){
+    if (score >=15){
         gameStage++;
         score=0;
     }
@@ -333,9 +340,9 @@ function resetGame(){
     balls= [];
     currentTime=0;
     startTime= millis();
-    gameWin=false;
     game2Started=false;
-
+   
+// reset player
     player= {
         x:350,
         y:325,

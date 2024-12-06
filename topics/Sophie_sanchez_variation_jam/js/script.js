@@ -5,30 +5,36 @@
  * a game that interacts with the brain capability 
  * 
  * Instructions:
- * - 
- * - 
+ * - color ball catching, clik on the mouse to catch the balls you need 10 to go to the next level
+ * - Ball eating with player movement, you need to eat the balls to win the game, movre with the arrows
  * - 
  * Made with p5
  * https://p5js.org/
  */
 
 "use strict";
+
+/** game state variable*/
 let currentTime= 0;
 let startTime=0;
 let gameOver= false;
 let gameWin=false;
 let gameStarted= false;
 let game2Started= false;
+
+/** asset variables */
 let eye;
 let backgroundMusic;
 let ballSound;
 
+/** game progession variables */
 let gameStage=1;
 let balls=[];
 let score=0;
 const ballCount=10;
 const ballSize=40;
 
+/** game state of the player */
 let player={
 
     x:350,
@@ -38,13 +44,13 @@ let player={
     color:255
 };
 
+/** text for game instructions */
 let string = ` 
-Welcome to the magic world of sound and color.
-you will be asked to overcome challenges,
-win and see what you acomplish. `;
+Welcome to the brain challenge. Train the cognitive skills trough interactive games`;
 let currentCharacter= 0;
 
 
+/**game assests */
 function preload(){
 
      eye= loadImage("assets/images/ojo.jpg");
@@ -58,9 +64,10 @@ function setup() {
 
 }
 
+/** conditional background and game state */
 function draw() {
 
-//change the color of the background depending on the game status 
+
 if (gameOver) { 
     background(eye);
     displayGameOver();
@@ -83,7 +90,7 @@ else {
    }
 } 
       
-/* draw the function for the instruction page*/
+/* draw the function for the instruction typing page*/
 function  displayInstructions() {
 
     let currentString= string.substring(0,currentCharacter);
@@ -95,8 +102,8 @@ function  displayInstructions() {
     fill(255);
     text(currentString, width/2, height/2);
 
-    //condition to start the game
-    if (currentCharacter >= string.length) {
+
+    if (currentCharacter >= string.length) { //condition to start the game
         textSize(16);
         textFont('courier');
         text('Press SPACE to start the game',width/2,height/2 +100);
@@ -107,6 +114,7 @@ function  displayInstructions() {
     currentCharacter= min(currentCharacter,string.length);
 }
 
+/** reset the game is game is over */
 function keyPressed(){
 
     if (gameOver){
@@ -124,6 +132,7 @@ function keyPressed(){
 
 }    
 
+/** first game stage, the catching color balls */
 function displayGame1(){
 
     fill(255);
@@ -139,7 +148,7 @@ function displayGame1(){
         startTime= millis();
     }
 
-    if(balls.length <ballCount) {
+    if(balls.length <ballCount) { //update and draw balls
         createBall();
     }
 
@@ -152,13 +161,14 @@ function displayGame1(){
         fill(ball.color);
         ellipse(ball.x,ball.y,ballSize);
 
-        if (ball.x <0 || ball.x> width || ball.y<0 || ball.y>height) {
+        if (ball.x <0 || ball.x> width || ball.y<0 || ball.y>height) { // remove the balls is out of the screen
             balls.splice(i,1);
         }
     }
 
 }
 
+/**create new balls with random propieties */
 function createBall(){
     let ball={
         x: random(width),
@@ -171,9 +181,10 @@ function createBall(){
     balls.push(ball);
 }
    
+/** function for the game stages */
 function mousePressed(){
       
-     if (!gameStarted || gameOver) return;
+     if (!gameStarted || gameOver) return; // first game stage if game is not started or is over
 
      if (gameStage== 1){
      for (let i = balls.length -1; i >= 0; i--){
@@ -187,7 +198,7 @@ function mousePressed(){
         }
      }
 
-  } else if (gameStage==2){
+  } else if (gameStage==2){ // second game stage is not started or is over
     if(!game2Started){
         game2Started= true;
         starTime=millis();
@@ -199,7 +210,7 @@ function mousePressed(){
   }
 }
 
-
+/** second game stage, eating ballls  */
 function displayGame2(){
 
     fill(255);
@@ -214,10 +225,10 @@ function displayGame2(){
     } else {
         fill(204,0,0);
         textAlign(CENTER);
-        text('Use arrow keys to eat the balls, get 20 to win',350,20); 
+        text('Use arrow keys to eat the balls, get 17 to win',350,20); 
     }
   
-if (game2Started){
+if (game2Started){ // player mouvement controls 
     if (keyIsDown(LEFT_ARROW)) {
        player.x -= player.speed;
     }
@@ -244,7 +255,7 @@ if (game2Started){
     for (let i= balls.length -1; i>= 0; i--) {
         let ball=balls[i];
 
-        ball.x += ball.speedX *(1 + score* 0.1);
+        ball.x += ball.speedX *(1 + score* 0.1); // increase ball speed based on score 
         ball.y += ball.speedY *(1 + score* 0.1);
 
         if (ball.x <0 ||ball.x > width) ball.speedX *= -1.1;
@@ -253,7 +264,8 @@ if (game2Started){
         fill(ball.color);
         ellipse(ball.x,ball.y,ballSize);
 
-        let distance= dist(player.x,player.y,ball.x,ball.y);
+        // check for the ball collection
+        let distance= dist(player.x,player.y,ball.x,ball.y); 
         if (distance< (player.size+ballSize) /2) {
             balls.splice(i,1);
             score++;
@@ -262,13 +274,13 @@ if (game2Started){
             ballSound.play();
         }
     }
-
+    // draw the player of the carching balls
     fill(player.color);
     square(player.x,player.y,player.size);
 }
 
     // win condition
-    if (score >=20){
+    if (score >=17){
         gameStage++;
         score=0;
     }
@@ -291,9 +303,12 @@ function  gameTimer(){
         return;
     }
     text(int(currentTime),600,150);
-  } else if (gameStage==2){
+  } 
+  
+  // timer for the second stage
+  else if (gameStage==2){
     if (game2Started){
-        currentTime= 20  -(millis()-startTime)/ 1000;
+        currentTime= 25  -(millis()-startTime)/ 1000;
 
         if (currentTime <= 0){
             gameOver= true;
@@ -306,7 +321,7 @@ function  gameTimer(){
   }
 }
 
-
+/**reset the game to the inital state */
 function resetGame(){ 
 
     gameOver= false;
@@ -330,6 +345,7 @@ function resetGame(){
 
 }
 
+/**game over scree */
 function displayGameOver(){
      
     push();
@@ -342,6 +358,7 @@ function displayGameOver(){
     pop();
 }
 
+/**winning screen */
 function displayGameWin(){
 
     push();

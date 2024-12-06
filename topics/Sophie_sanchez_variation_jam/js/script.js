@@ -1,5 +1,5 @@
 /**
- * Variation Jam 
+ * Variation Jam, BrainGame
  * Sophie Sanchez 
  * 
  * a game that interacts with the brain capability 
